@@ -3,81 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ana sayfa – Mini Kod & Araç</title>
+  <title>Ana sayfa – Mini Kod & Araç sitesi</title>
   <style>
     * { box-sizing: border-box; }
     body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #e8e8e8; }
     .layout { display: flex; min-height: 100vh; }
     .sidebar {
-      width: 240px;
+      width: 260px;
       background: #16162a;
       padding: 1.5rem 1rem;
       border-right: 1px solid #2a2a4a;
+      display: flex;
+      flex-direction: column;
     }
-    .sidebar .logo { font-size: 1.5rem; font-weight: 700; color: #00d9ff; margin-bottom: 0.25rem; }
+    .sidebar .logo-wrap { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 0.25rem; }
+    .sidebar .logo-icon { width: 36px; height: 36px; background: #00c853; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1.1rem; }
+    .sidebar .logo { font-size: 1.35rem; font-weight: 700; color: #00d9ff; }
     .sidebar .tagline { font-size: 0.8rem; opacity: 0.8; margin-bottom: 1.5rem; }
     .sidebar nav a {
-      display: block;
-      padding: 0.6rem 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.65rem 0.75rem;
       color: #b0b0c0;
       text-decoration: none;
       border-radius: 8px;
-      margin-bottom: 0.25rem;
+      margin-bottom: 0.2rem;
     }
     .sidebar nav a:hover { color: #00d9ff; background: rgba(0,217,255,0.1); }
-    .sidebar nav a.aktif { color: #00d9ff; background: rgba(0,217,255,0.15); }
+    .sidebar nav a.aktif { color: #00d9ff; background: rgba(0,217,255,0.18); }
+    .sidebar nav a .ico { font-size: 1rem; width: 1.2em; text-align: center; }
+    .sidebar .rehber { margin-top: auto; padding-top: 1.5rem; border-top: 1px solid #2a2a4a; font-size: 0.85rem; }
+    .sidebar .rehber strong { color: #00d9ff; }
+    .sidebar .rehber p { margin: 0.25rem 0 0; opacity: 0.85; }
     .main {
       flex: 1;
       padding: 2rem;
       overflow: auto;
+      max-width: 900px;
     }
-    .main h1 { color: #b8e0ff; margin-bottom: 0.5rem; }
-    .main .sub { opacity: 0.85; margin-bottom: 1rem; }
-    .main .aciklama { max-width: 560px; line-height: 1.65; margin-bottom: 2rem; opacity: 0.9; }
-    .kartlar {
-      display: grid;
-      gap: 1rem;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    }
-    .kartlar a {
-      display: block;
-      padding: 1.2rem 1.5rem;
+    .main h1 { color: #fff; font-size: 1.75rem; margin-bottom: 0.75rem; }
+    .main .hero-desc { opacity: 0.9; line-height: 1.6; margin-bottom: 1rem; }
+    .main .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 2rem; }
+    .main .tags span {
+      padding: 0.35rem 0.75rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
       background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(0,217,255,0.25);
-      border-radius: 12px;
+      border: 1px solid rgba(0,217,255,0.3);
+      color: #b8e0ff;
+    }
+    .main .tags span.aktif { border-color: #00c853; color: #00c853; }
+    .kart { background: rgba(0,0,0,0.25); border: 1px solid #2a2a4a; border-radius: 12px; padding: 1.25rem; margin-bottom: 1.5rem; }
+    .kart h2 { color: #b8e0ff; font-size: 1.1rem; margin: 0 0 0.5rem; display: flex; align-items: center; gap: 0.5rem; }
+    .kart h2 .ico { color: #00c853; }
+    .kart ul { margin: 0; padding-left: 1.25rem; opacity: 0.9; line-height: 1.6; }
+    .bolumler { display: grid; gap: 1rem; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 2rem; }
+    .bolumler a {
+      display: block;
+      padding: 1rem;
+      background: rgba(0,0,0,0.25);
+      border: 1px solid #2a2a4a;
+      border-radius: 10px;
       color: #00d9ff;
       text-decoration: none;
       font-weight: 600;
-      transition: background 0.2s, transform 0.2s;
+      transition: background 0.2s, border-color 0.2s;
     }
-    .kartlar a:hover { background: rgba(0,217,255,0.12); transform: translateY(-2px); }
+    .bolumler a:hover { background: rgba(0,217,255,0.1); border-color: rgba(0,217,255,0.4); }
+    .bolumler a .ico { color: #00c853; margin-right: 0.35rem; }
+    .kod-blok { background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 1rem; overflow-x: auto; margin: 0.5rem 0 0.75rem; font-family: monospace; font-size: 0.9rem; }
+    .kod-blok code { color: #e6edf3; }
+    .btn { display: inline-block; padding: 0.5rem 1rem; background: #00c853; color: #000; border: none; border-radius: 6px; cursor: pointer; font-weight: 600; font-size: 0.9rem; margin-top: 0.5rem; }
+    .btn:hover { background: #00e676; }
   </style>
 </head>
 <body>
   <div class="layout">
     <aside class="sidebar">
-      <div class="logo">RUHBUDUR</div>
-      <div class="tagline">Mini kod & araç sitesi</div>
+      <div class="logo-wrap">
+        <div class="logo-icon">R</div>
+        <div>
+          <div class="logo">RUHBUDUR</div>
+          <div class="tagline">Mini kod & araç sitesi</div>
+        </div>
+      </div>
       <nav>
-        <a href="index.html" class="aktif">Ana sayfa</a>
-        <a href="kod-parcadklari.html">Kod parçacıkları</a>
-        <a href="minik-oyunlar.html">Minik oyunlar</a>
-        <a href="proje-fikirleri.html">Proje fikirleri</a>
-        <a href="arac kutusu.html">Araç kutusu</a>
+        <a href="index.html" class="aktif"><span class="ico">&#8962;</span> Ana sayfa</a>
+        <a href="kod-parcadiklari.html"><span class="ico">&#8279;</span> Kod parçacıkları</a>
+        <a href="minik-oyunlar.html"><span class="ico">&#9635;</span> Minik oyunlar</a>
+        <a href="proje-fikirleri.html"><span class="ico">&#128161;</span> Proje fikirleri</a>
+        <a href="arac%20kutusu.html"><span class="ico">&#128295;</span> Araç kutusu</a>
       </nav>
+      <div class="rehber">
+        <strong>Kodsuz rehberler</strong>
+        <p>Amatör kod öğrenenlere mini, işe yarar bilgiler ve kodlar sunar.</p>
+      </div>
     </aside>
     <main class="main">
-      <h1>Hoş geldin</h1>
-      <p class="sub">Aşağıdaki bölümlere hızlıca gidebilirsin.</p>
-      <div class="aciklama">
-        <p><strong>Bu site niçin yapıldı?</strong> Derslerde, projelerde veya günlük kullanımda işe yarayan kod parçacıklarını, minik oyunları ve araçları tek yerde toplamak için. Hepsi tarayıcıda çalışır, ekstra program gerekmez. İster kopyala-yapıştır yap, ister fikir al; yeni şeyler ekleyerek kendi araç kutunu büyütebilirsin.</p>
+      <h1>Basit ama işe yarar mini kod & araç sitesi.</h1>
+      <p class="hero-desc">Bu site, kod yazmaya yeni başlayanlar ve eğlence için uğraşanlar için hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve akıllı tahta / sınıf için kullanılabilecek mini araçlardan oluşuyor.</p>
+      <div class="tags">
+        <span>HTML-CSS-JavaScript</span>
+        <span>Python & C++ örnekleri</span>
+        <span class="aktif">Öğrenci & hobi projesi</span>
       </div>
-      <div class="kartlar">
-        <a href="kod-parcadklari.html">Kod Parçacığı Arşivi</a>
-        <a href="minik-oyunlar.html">Canlı Kod Oyunları</a>
-        <a href="proje-fikirleri.html">Proje Fikirleri</a>
-        <a href="arac kutusu.html">Kendi Araç Kutusu</a>
+
+      <div class="kart">
+        <h2>Bu site neden var?</h2>
+        <ul>
+          <li>Anlaşılabilirlik ve hız önemliydi.</li>
+          <li>Derste veya akıllı tahtada hızlıca açıp kullanılabileceğin araçlar için.</li>
+          <li>"Ne projesi yapsam?" dedim gidip aklına fikir gelsin diye.</li>
+          <li>Tamamen ücretsiz, reklamsız ve sadece tarayıcıda çalışan bir yer olsun diye.</li>
+        </ul>
       </div>
+
+      <h2 style="color:#b8e0ff; font-size:1.15rem; margin-bottom:0.5rem;">Sitede hangi bölümler var?</h2>
+      <p style="opacity:0.9; margin-bottom:1rem;">Aşağıda her bölümün kısa açıklaması var. Soldaki menüden de istediğin yere tek tıkla gidebilirsin.</p>
+      <div class="bolumler">
+        <a href="kod-parcadiklari.html"><span class="ico">&#8279;</span> Kod parçacıkları</a>
+        <a href="minik-oyunlar.html"><span class="ico">&#9635;</span> Minik oyunlar</a>
+        <a href="proje-fikirleri.html"><span class="ico">&#128161;</span> Proje fikirleri</a>
+        <a href="arac%20kutusu.html"><span class="ico">&#128295;</span> Araç kutusu</a>
+      </div>
+
+      <h2 style="color:#b8e0ff; font-size:1.1rem; margin-bottom:0.5rem;">Kod parçacıkları</h2>
+      <p style="opacity:0.9; margin-bottom:0.5rem;">Sık lazım olan minik kodlar. Butona tıkla ve anında kopyalayabilirsin.</p>
+      <div class="kod-blok">
+        <code>import random<br>sayi = random.randint(1, 100)<br>print("Tuttuğum sayı:", sayi)</code>
+      </div>
+      <button class="btn" type="button" onclick="navigator.clipboard.writeText('import random\nsayi = random.randint(1, 100)\nprint(\"Tuttuğum sayı:\", sayi)'); this.textContent='Kopyalandı!'; setTimeout(function(){this.textContent='Kopyala';}.bind(this), 1500);">Kopyala</button>
     </main>
   </div>
 </body>
