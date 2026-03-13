@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Minik oyunlar · RUHBUDUR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="logo-block">
+          <div class="logo-circle">R</div>
+          <div class="logo-text">
+            <span>RUHBUDUR</span>
+            <span>Mini kod & araç sitesi</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="index.html">Ana sayfa</a>
+          <a href="kod-parcaciklari.html">Kod parçacıkları</a>
+          <a href="minik-oyunlar.html" class="active">Minik oyunlar</a>
+          <a href="proje-fikirleri.html">Proje fikirleri</a>
+          <a href="arac-kutusu.html">Araç kutusu</a>
+        </nav>
+      </div>
+      <div class="sidebar-footer">
+        Sayfada sadece tarayıcıyla çalışan küçük oyunlar var.
+        Kodlarını da sayfanın altında görebilirsin.
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="section">
+        <h1>Minik oyunlar</h1>
+        <p class="tagline">
+          Tam ekran uygulama değil, derste veya arkadaş ortamında
+          birkaç dakika eğlenmek için yapılmış küçük oyunlar.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Sayı tahmin oyunu</h2>
+        <p class="tagline">
+          1–100 arasında tuttuğum sayıyı tahmin etmeye çalış. Doğru bildiğinde
+          yeni sayı tutulur.
+        </p>
+        <div class="tool-card">
+          <h3>Canlı oyun</h3>
+          <label for="guess-input">Tahminin:</label>
+          <input id="guess-input" type="number" min="1" max="100" />
+          <button class="btn-small" id="guess-btn">Tahmin et</button>
+          <div class="tool-output" id="guess-output"></div>
+        </div>
+        <div class="mt-small">
+          <span class="badge blue">Kod JS ile yazıldı</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Taş – Kağıt – Makas</h2>
+        <p class="tagline">
+          Bilgisayara karşı klasik taş-kağıt-makas. Sonucu hemen gösterir.
+        </p>
+        <div class="tool-card">
+          <h3>Canlı oyun</h3>
+          <label>Seçimin:</label>
+          <select id="rps-select">
+            <option value="tas">Taş</option>
+            <option value="kagit">Kağıt</option>
+            <option value="makas">Makas</option>
+          </select>
+          <button class="btn-small" id="rps-btn">Oyna</button>
+          <div class="tool-output" id="rps-output"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Kodlar</h2>
+        <p class="tagline">
+          Aşağıdaki kodları kendi projene alıp geliştirebilirsin.
+        </p>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>Sayı tahmin (JavaScript)</div>
+            <button class="btn-copy" data-copy-target="js-guess">Kopyala</button>
+          </div>
+          <pre><code id="js-guess">let secret = Math.floor(Math.random() * 100) + 1;
+const input = document.getElementById(&quot;guess-input&quot;);
+const btn = document.getElementById(&quot;guess-btn&quot;);
+const out = document.getElementById(&quot;guess-output&quot;);
+
+btn.addEventListener(&quot;click&quot;, () =&gt; {
+  const val = Number(input.value);
+  if (!val || val &lt; 1 || val &gt; 100) {
+    out.textContent = &quot;1–100 arasında bir sayı yaz.&quot;;
+    out.style.color = &quot;#f97316&quot;;
+    return;
+  }
+  if (val === secret) {
+    out.textContent = &quot;Doğru! Yeni sayı tuttum.&quot;;
+    out.style.color = &quot;#22c55e&quot;;
+    secret = Math.floor(Math.random() * 100) + 1;
+  } else if (val &lt; secret) {
+    out.textContent = &quot;Daha büyük dene.&quot;;
+    out.style.color = &quot;#eab308&quot;;
+  } else {
+    out.textContent = &quot;Daha küçük dene.&quot;;
+    out.style.color = &quot;#eab308&quot;;
+  }
+});</code></pre>
+        </article>
+
+      </section>
+
+      <footer>
+        Minik oyunlar sayfası · Yeni oyun fikirlerin olursa ekleyebilirsin.
+      </footer>
+    </main>
+  </div>
+  <script src="script-common.js" type="module"></script>
+  <script>
+    // Aynı JS oyunları burada da aktive et
+    let secret = Math.floor(Math.random() * 100) + 1;
+    const guessInput = document.getElementById("guess-input");
+    const guessBtn = document.getElementById("guess-btn");
+    const guessOut = document.getElementById("guess-output");
+    guessBtn.addEventListener("click", () => {
+      const val = Number(guessInput.value);
+      if (!val || val < 1 || val > 100) {
+        guessOut.textContent = "1–100 arasında bir sayı yaz.";
+        guessOut.style.color = "#f97316";
+        return;
+      }
+      if (val === secret) {
+        guessOut.textContent = "Doğru! Yeni sayı tuttum.";
+        guessOut.style.color = "#22c55e";
+        secret = Math.floor(Math.random() * 100) + 1;
+      } else if (val < secret) {
+        guessOut.textContent = "Daha büyük dene.";
+        guessOut.style.color = "#eab308";
+      } else {
+        guessOut.textContent = "Daha küçük dene.";
+        guessOut.style.color = "#eab308";
+      }
+    });
+
+    const rpsSelect = document.getElementById("rps-select");
+    const rpsBtn = document.getElementById("rps-btn");
+    const rpsOut = document.getElementById("rps-output");
+    const rpsMap = { tas: "Taş", kagit: "Kağıt", makas: "Makas" };
+    function rpsScore(player, bot) {
+      if (player === bot) return "Berabere.";
+      if (
+        (player === "tas" && bot === "makas") ||
+        (player === "kagit" && bot === "tas") ||
+        (player === "makas" && bot === "kagit")
+      ) return "Kazandın!";
+      return "Kaybettin.";
+    }
+    rpsBtn.addEventListener("click", () => {
+      const player = rpsSelect.value;
+      const arr = ["tas", "kagit", "makas"];
+      const bot = arr[Math.floor(Math.random() * arr.length)];
+      const sonuc = rpsScore(player, bot);
+      rpsOut.textContent = `Sen: ${rpsMap[player]} · Bot: ${rpsMap[bot]} → ${sonuc}`;
+    });
+  </script>
+</body>
+</html>
