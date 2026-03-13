@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kod parçacıkları · RUHBUDUR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="logo-block">
+          <div class="logo-circle">R</div>
+          <div class="logo-text">
+            <span>RUHBUDUR</span>
+            <span>Mini kod & araç sitesi</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="index.html">Ana sayfa</a>
+          <a href="kod-parcaciklari.html" class="active">Kod parçacıkları</a>
+          <a href="minik-oyunlar.html">Minik oyunlar</a>
+          <a href="proje-fikirleri.html">Proje fikirleri</a>
+          <a href="arac-kutusu.html">Araç kutusu</a>
+        </nav>
+      </div>
+      <div class="sidebar-footer">
+        Bu sayfada Python, JS ve C++ için sık kullanılan
+        hazır kod örnekleri var. İstediğini seçip kopyalayabilirsin.
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="section">
+        <h1>Kod parçacıkları</h1>
+        <p class="tagline">
+          Sık lazım olan bazı küçük kodlar. Üstteki “Kopyala”
+          butonuna tıklayıp doğrudan kendi projenine yapıştırabilirsin.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Python</h2>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>1. 1 ile 100 arası rastgele sayı</div>
+            <button class="btn-copy" data-copy-target="py-random">Kopyala</button>
+          </div>
+          <pre><code id="py-random">import random
+
+sayi = random.randint(1, 100)
+print(&quot;Tuttuğum sayı:&quot;, sayi)</code></pre>
+          <p>Basit tahmin oyunları veya testler için başlangıç kodu.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>2. Dosyadan satır satır okuma</div>
+            <button class="btn-copy" data-copy-target="py-file">Kopyala</button>
+          </div>
+          <pre><code id="py-file">with open(&quot;veri.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+    for satir in f:
+        print(satir.strip())</code></pre>
+          <p>Metin dosyalarındaki verileri satır satır işlemek için kullanılır.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>3. Basit zamanlayıcı (geri sayım)</div>
+            <button class="btn-copy" data-copy-target="py-timer">Kopyala</button>
+          </div>
+          <pre><code id="py-timer">import time
+
+saniye = 10
+while saniye &gt; 0:
+    print(saniye)
+    time.sleep(1)
+    saniye -= 1
+
+print(&quot;Süre doldu!&quot;)</code></pre>
+          <p>Konsolda küçük geri sayım/timer yazmak için kullanılabilir.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>JavaScript</h2>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>1. Butona tıklayınca arka plan rengini değiştir</div>
+            <button class="btn-copy" data-copy-target="js-bg">Kopyala</button>
+          </div>
+          <pre><code id="js-bg">const colors = [&quot;#0f172a&quot;, &quot;#1d4ed8&quot;, &quot;#16a34a&quot;, &quot;#be123c&quot;];
+
+document.querySelector(&quot;button&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+  const secilen = colors[Math.floor(Math.random() * colors.length)];
+  document.body.style.backgroundColor = secilen;
+});</code></pre>
+          <p>Basit animasyonlar veya tema değiştirme butonları için örnek kod.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>2. Input alanındaki değeri canlı göster</div>
+            <button class="btn-copy" data-copy-target="js-live">Kopyala</button>
+          </div>
+          <pre><code id="js-live">const input = document.querySelector(&quot;#isim&quot;);
+const cikti = document.querySelector(&quot;#merhaba&quot;);
+
+input.addEventListener(&quot;input&quot;, () =&gt; {
+  cikti.textContent = `Merhaba ${input.value || &quot;?&quot;}`;
+});</code></pre>
+          <p>Formlarda canlı önizleme için çok işe yarar.</p>
+        </article>
+      </section>
+
+      <section class="section">
+        <h2>C++</h2>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>1. Dizideki en büyük eleman</div>
+            <button class="btn-copy" data-copy-target="cpp-max">Kopyala</button>
+          </div>
+          <pre><code id="cpp-max">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+using namespace std;
+
+int main() {
+    vector&lt;int&gt; a = {3, 7, 2, 9, 4};
+    int maks = a[0];
+    for (int x : a) {
+        if (x &gt; maks) maks = x;
+    }
+    cout &lt;&lt; &quot;En büyük:&quot; &lt;&lt; maks &lt;&lt; endl;
+    return 0;
+}</code></pre>
+          <p>Dizilerle çalışırken en temel arama örneklerinden biri.</p>
+        </article>
+      </section>
+
+      <footer>
+        Kod parçacıkları sayfası · İleride yeni diller ve örnekler eklenebilir.
+      </footer>
+    </main>
+  </div>
+  <script src="script-common.js" type="module"></script>
+</body>
+</html>
