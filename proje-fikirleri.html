@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Proje fikirleri · RUHBUDUR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="logo-block">
+          <div class="logo-circle">R</div>
+          <div class="logo-text">
+            <span>RUHBUDUR</span>
+            <span>Mini kod & araç sitesi</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="index.html">Ana sayfa</a>
+          <a href="kod-parcaciklari.html">Kod parçacıkları</a>
+          <a href="minik-oyunlar.html">Minik oyunlar</a>
+          <a href="proje-fikirleri.html" class="active">Proje fikirleri</a>
+          <a href="arac-kutusu.html">Araç kutusu</a>
+        </nav>
+      </div>
+      <div class="sidebar-footer">
+        Farklı seviyelerde Python, JS ve C++ proje fikirleri.
+        Canın sıkıldığında buradan rastgele birini seçip başlayabilirsin.
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="section">
+        <h1>Proje fikirleri</h1>
+        <p class="tagline">
+          Tamamlanmış dev projeler değil, başlangıç seviyesinden orta seviyeye
+          kadar küçük ama geliştirilebilir fikirler. İstersen projeleri birleştirip
+          kendi “mega” uygulamanı da yapabilirsin.
+        </p>
+      </section>
+
+      <section class="section">
+        <h2>Dile göre filtre</h2>
+        <div class="pill-row">
+          <div class="pill active" data-lang="all">Hepsi</div>
+          <div class="pill" data-lang="py">Python</div>
+          <div class="pill" data-lang="js">JavaScript</div>
+          <div class="pill" data-lang="cpp">C++</div>
+        </div>
+
+        <div id="ideas-list">
+          <div class="idea" data-lang="py">
+            <strong>1. Günlük / not defteri (PY – kolay)</strong><br />
+            <span>Terminalden çalışan, tarih tarih not ekleyip arama yapabildiğin küçük uygulama.
+            Dosya sistemi veya basit bir SQLite veritabanı kullanabilirsin.</span>
+          </div>
+          <div class="idea" data-lang="py">
+            <strong>2. Quiz / sınav sistemi (PY – orta)</strong><br />
+            <span>Soruları JSON dosyasından okuyan, rastgele sırayla soran, süre tutan ve sonunda
+            doğru/yanlış sayısını gösteren bir sistem.</span>
+          </div>
+          <div class="idea" data-lang="js">
+            <strong>3. Pomodoro zamanlayıcı (JS – kolay)</strong><br />
+            <span>25 dakika çalışma, 5 dakika mola döngüsünü yöneten; kalan süreyi gösteren ve
+            sesi/uyarıyı tarayıcıda veren web app.</span>
+          </div>
+          <div class="idea" data-lang="js">
+            <strong>4. Yapılacaklar + sürükle-bırak (JS – orta)</strong><br />
+            <span>Görevleri mouse ile yeniden sıralayabildiğin, tamamlandı işaretlediğin ve
+            localStorage’da saklayan bir todo uygulaması.</span>
+          </div>
+          <div class="idea" data-lang="cpp">
+            <strong>5. Konsol satranç skor takipçisi (C++ – kolay)</strong><br />
+            <span>Arkadaşlarınla oynadığın maçların sonucunu kaydedip istatistik tutan temel
+            bir program (galibiyet, beraberlik, mağlubiyet).</span>
+          </div>
+          <div class="idea" data-lang="cpp">
+            <strong>6. Küçük dosya şifreleme aracı (C++ – orta)</strong><br />
+            <span>Klasik şifreleme algoritmalarının (XOR, Caesar vb.) basit versiyonlarını deneyip
+            bir metin dosyasını şifreleyip çözen araç.</span>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Proje fikirleri sayfası · İleride seviye seviye daha fazla fikir eklenebilir.
+      </footer>
+    </main>
+  </div>
+  <script src="script-common.js" type="module"></script>
+  <script>
+    const pills = document.querySelectorAll(".pill");
+    const ideas = document.querySelectorAll(".idea");
+    pills.forEach(p => {
+      p.addEventListener("click", () => {
+        pills.forEach(x => x.classList.remove("active"));
+        p.classList.add("active");
+        const lang = p.getAttribute("data-lang");
+        ideas.forEach(i => {
+          if (lang === "all" || i.getAttribute("data-lang") === lang) {
+            i.style.display = "";
+          } else {
+            i.style.display = "none";
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>
