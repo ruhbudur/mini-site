@@ -346,3 +346,35 @@ footer {
   font-size:.78rem;
   color:var(--muted);
 }
+
+/* ========== YAZI RENKLERİ – Koyu arka plan için açık metin ========== */
+
+body,
+p, span, label, li,
+.sidebar a, nav a, a {
+  color: #e8e8e8 !important;
+}
+
+h1, h2, h3, h4, h5, h6,
+.baslik, .title {
+  color: #b8e0ff !important;
+}
+
+input, select, textarea, button {
+  color: #e8e8e8 !important;
+  background-color: #2a2a3a !important;
+  border-color: #555 !important;
+}
+
+input::placeholder,
+textarea::placeholder {
+  color: #999 !important;
+}
+
+.sidebar, .nav, aside {
+  color: #e8e8e8 !important;
+}
+
+.sidebar a:hover, nav a:hover {
+  color: #7dd3fc !important;
+}
