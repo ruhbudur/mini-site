@@ -2,14 +2,13 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>RUHBUDUR – Mini Kod & Araç Sitesi</title>
+  <title>RUHBUDUR – Mini kod & araç sitesi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
       --bg: #020617;
       --bg2: #020617;
       --panel: #020617;
-      --panel2: #020617;
       --accent: #22c55e;
       --accent2: #38bdf8;
       --accent3: #eab308;
@@ -18,244 +17,229 @@
       --border: #1f2937;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
-    html, body { height: 100%; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
       color: var(--text);
       background: #000;
-      overflow: hidden;
+      overflow-x: hidden;
     }
+    a { color: inherit; text-decoration: none; }
 
-    /* Kod yağmuru arkası */
-    #code-rain {
+    /* Matrix arka plan */
+    #matrix {
       position: fixed;
       inset: 0;
       z-index: 0;
       background: radial-gradient(circle at top, #020617, #000 70%);
     }
-
     .app {
       position: relative;
       z-index: 1;
-      display: grid;
-      grid-template-columns: 260px minmax(0, 1fr);
-      height: 100vh;
-      color: var(--text);
+      display: flex;
+      min-height: 100vh;
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.8), rgba(15,23,42,0.9));
+      backdrop-filter: blur(4px);
     }
 
-    @media (max-width: 880px) {
-      .app {
-        grid-template-columns: 70px minmax(0, 1fr);
-      }
-      .sidebar-labels { display: none; }
-    }
-
-    /* Sidebar */
+    /* Sol menü */
     .sidebar {
-      background: linear-gradient(180deg, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
-      border-right: 1px solid rgba(31,41,55,0.9);
-      padding: 1.2rem .9rem;
+      width: 220px;
+      background: rgba(15,23,42,0.95);
+      border-right: 1px solid rgba(15,23,42,1);
+      padding: 1.6rem 1.2rem;
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
-      backdrop-filter: blur(14px);
     }
-    .logo-block {
-      display:flex;
-      align-items:center;
-      gap:.7rem;
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: .7rem;
     }
-    .logo-circle {
-      width: 40px;
-      height: 40px;
+    .logo-badge {
+      width: 36px;
+      height: 36px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #22c55e, #16a34a 40%, #0ea5e9);
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-weight:800;
-      color:#020617;
-      box-shadow:0 0 22px rgba(34,197,94,.7);
+      background: radial-gradient(circle at 30% 20%, #22c55e, #22c55e 40%, #0ea5e9);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 800;
+      color: #020617;
+      box-shadow: 0 0 18px rgba(34,197,94,.7);
     }
     .logo-text {
-      display:flex;
-      flex-direction:column;
+      display: flex;
+      flex-direction: column;
+      font-size: .9rem;
     }
     .logo-text span:first-child {
-      font-size:.9rem;
-      font-weight:700;
-      letter-spacing:.08em;
+      font-weight: 700;
+      letter-spacing: .08em;
     }
     .logo-text span:last-child {
-      font-size:.75rem;
-      color:var(--muted);
+      font-size: .78rem;
+      color: var(--muted);
     }
-
     .nav {
-      margin-top:.6rem;
-      display:flex;
-      flex-direction:column;
-      gap:.35rem;
+      margin-top: .5rem;
+      display: flex;
+      flex-direction: column;
+      gap: .35rem;
     }
-    .nav button {
-      width:100%;
-      display:flex;
-      align-items:center;
-      gap:.6rem;
-      padding:.45rem .5rem;
-      border-radius:999px;
-      border:1px solid transparent;
-      background:transparent;
-      color:var(--muted);
-      font-size:.8rem;
-      text-align:left;
-      cursor:pointer;
+    .nav-btn {
+      width: 100%;
+      text-align: left;
+      padding: .45rem .7rem;
+      border-radius: 999px;
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--muted);
+      font-size: .85rem;
+      cursor: pointer;
     }
-    .nav button span.icon {
-      width:26px;
-      height:26px;
-      border-radius:999px;
-      background:#020617;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-size:.9rem;
+    .nav-btn span {
+      margin-left: .35rem;
     }
-    .nav button span.label {
-      white-space:nowrap;
+    .nav-btn.active {
+      background: linear-gradient(135deg,#16a34a,#22c55e);
+      color: #020617;
+      border-color: rgba(34,197,94,.6);
+      box-shadow: 0 0 18px rgba(34,197,94,.55);
+      font-weight: 600;
     }
-    .nav button.active {
-      background: radial-gradient(circle at left, rgba(34,197,94,.2), transparent 70%);
-      border-color:rgba(34,197,94,.6);
-      color:var(--text);
+    .nav-btn:not(.active):hover {
+      background: rgba(15,23,42,0.9);
+      border-color: rgba(148,163,184,0.4);
+      color: #e5e7eb;
     }
-    .nav button.active span.icon {
-      background:linear-gradient(135deg,var(--accent),var(--accent2));
-      color:#020617;
-    }
-    .nav button:hover {
-      border-color:rgba(148,163,184,.55);
-      color:var(--text);
-    }
-
     .sidebar-footer {
-      margin-top:auto;
-      font-size:.78rem;
-      color:var(--muted);
+      margin-top: auto;
+      font-size: .78rem;
+      color: var(--muted);
     }
-    .sidebar-footer strong { color:var(--accent2); }
+    .sidebar-footer a {
+      color: var(--accent2);
+    }
 
-    /* Content */
+    /* Ana içerik */
     .content {
-      position:relative;
-      height:100vh;
-      overflow:auto;
-      padding:1.3rem 1.6rem 2rem;
-      background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(2,6,23,0.98));
+      flex: 1;
+      padding: 1.8rem 2.2rem 2.4rem;
+      overflow-y: auto;
     }
-    .content-inner {
-      max-width: 1080px;
-      margin: 0 auto;
-    }
-    .view {
-      display:none;
-    }
-    .view.active {
-      display:block;
-      animation: fadeIn .25s ease-out;
-    }
-    @keyframes fadeIn {
-      from { opacity:0; transform:translateY(4px); }
-      to { opacity:1; transform:translateY(0); }
+    @media (max-width: 900px) {
+      .app { flex-direction: column; }
+      .sidebar { width: 100%; border-right: none; border-bottom: 1px solid rgba(15,23,42,1); flex-direction: row; align-items: center; }
+      .nav { flex-direction: row; flex-wrap: wrap; margin-left: 1.2rem; }
+      .sidebar-footer { display: none; }
+      .content { padding: 1.4rem 1.2rem 2.2rem; }
     }
 
-    h1 {
-      font-size:clamp(1.9rem,3vw,2.4rem);
-      margin-bottom:.4rem;
+    .hero h1 {
+      font-size: clamp(1.8rem,3.2vw,2.4rem);
+      margin-bottom: .5rem;
     }
-    .lead {
-      font-size:.92rem;
-      color:var(--muted);
-      max-width:40rem;
-      margin-bottom:.9rem;
+    .hero p {
+      font-size: .95rem;
+      color: var(--muted);
+      max-width: 40rem;
     }
-    .chips {
-      display:flex;
-      flex-wrap:wrap;
-      gap:.45rem;
-      margin-bottom:1.3rem;
+    .pill-row-top {
+      margin-top: .9rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: .4rem;
     }
-    .chip {
-      font-size:.78rem;
-      padding:.2rem .55rem;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.45);
+    .pill-top {
+      font-size: .78rem;
+      padding: .22rem .6rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,.5);
+      color: var(--accent2);
+      background: rgba(15,23,42,.9);
     }
-    .chip.blue { border-color:var(--accent2); color:var(--accent2); }
-    .chip.green { border-color:var(--accent); color:var(--accent); }
-    .chip.yellow{ border-color:var(--accent3); color:var(--accent3); }
-
-    .info-grid {
-      display:grid;
-      grid-template-columns: minmax(0,2.2fr) minmax(0,2fr);
-      gap:1.3rem;
-      margin-bottom:1.8rem;
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0,2.2fr) minmax(0,1.6fr);
+      gap: 1.4rem;
+      margin-top: 1.6rem;
     }
-    @media (max-width:860px){ .info-grid{ grid-template-columns: 1fr; } }
-
+    @media (max-width: 900px) {
+      .hero-grid { grid-template-columns: 1fr; }
+    }
     .panel {
-      background: rgba(15,23,42,0.95);
+      background: radial-gradient(circle at top left, rgba(15,23,42,1), rgba(15,23,42,0.95));
       border-radius: 16px;
-      padding: 1rem 1.1rem;
-      border: 1px solid rgba(31,41,55,0.95);
-      box-shadow: 0 16px 40px rgba(0,0,0,0.85);
+      padding: 1.1rem 1.2rem;
+      border: 1px solid rgba(31,41,55,.9);
+      box-shadow: 0 18px 40px rgba(0,0,0,.9);
     }
     .panel h2 {
-      font-size:1rem;
-      margin-bottom:.4rem;
+      font-size: 1rem;
+      margin-bottom: .5rem;
     }
     .panel p {
-      font-size:.84rem;
-      color:var(--muted);
-      margin-bottom:.4rem;
+      font-size: .82rem;
+      color: var(--muted);
     }
     .panel ul {
-      font-size:.82rem;
-      color:var(--muted);
-      padding-left:1rem;
+      margin-top: .5rem;
+      padding-left: 1.2rem;
+      font-size: .8rem;
+      color: var(--muted);
     }
-    .panel ul li { margin-bottom:.15rem; }
-
-    .section-heading {
-      font-size:1rem;
-      margin-bottom:.35rem;
-      margin-top:1.3rem;
+    .section-title {
+      margin-top: 2rem;
+      font-size: 1.05rem;
+      margin-bottom: .4rem;
     }
     .section-sub {
-      font-size:.82rem;
-      color:var(--muted);
-      margin-bottom:.9rem;
+      font-size: .82rem;
+      color: var(--muted);
+      margin-bottom: 1rem;
     }
     .home-cards {
-      display:grid;
+      display: grid;
       grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
-      gap:.9rem;
-      margin-bottom:1.5rem;
+      gap: .9rem;
     }
     .home-card {
-      background: radial-gradient(circle at top left, rgba(56,189,248,0.08), rgba(15,23,42,0.98));
+      background: rgba(15,23,42,0.96);
       border-radius: 14px;
-      padding:.8rem .9rem;
-      border: 1px solid rgba(31,41,55,0.95);
-      font-size:.82rem;
+      padding: .9rem 1rem;
+      border: 1px solid rgba(31,41,55,.9);
+      font-size: .85rem;
     }
     .home-card h3 {
-      font-size:.9rem;
-      margin-bottom:.25rem;
+      font-size: .9rem;
+      margin-bottom: .2rem;
     }
-    .home-card p { color:var(--muted); }
+    .home-card p {
+      font-size: .8rem;
+      color: var(--muted);
+    }
+    .badge-dot {
+      display:inline-block;
+      width:8px;height:8px;
+      border-radius:999px;
+      margin-right:.35rem;
+    }
+    .b1{background:#38bdf8;}
+    .b2{background:#22c55e;}
+    .b3{background:#e879f9;}
+    .b4{background:#f97316;}
 
-    /* Kod parçacıkları */
+    /* Ortak alt başlık vs */
+    .section {
+      display: none;
+    }
+    .section.active {
+      display: block;
+    }
+
+    /* Kod parçacıkları sayfası */
     pre {
       background:#020617;
       border-radius:12px;
@@ -268,7 +252,9 @@
     code {
       font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
     }
-    .snippet { margin-bottom:1.2rem; }
+    .snippet {
+      margin-bottom:1.3rem;
+    }
     .snippet-header {
       display:flex;
       justify-content:space-between;
@@ -276,9 +262,13 @@
       margin-bottom:.25rem;
       font-size:.8rem;
     }
+    .snippet-lang {
+      font-size:.72rem;
+      color:var(--accent2);
+    }
     .btn-copy {
       font-size:.72rem;
-      padding:.2rem .55rem;
+      padding:.22rem .6rem;
       border-radius:999px;
       border:1px solid rgba(148,163,184,.5);
       background:transparent;
@@ -286,57 +276,37 @@
       cursor:pointer;
     }
     .btn-copy:hover {
-      color:var(--accent2);
       border-color:var(--accent2);
+      color:var(--accent2);
     }
 
-    /* Proje fikirleri */
-    .pill-row {
-      display:flex;
-      flex-wrap:wrap;
-      gap:.4rem;
-      margin-bottom:.6rem;
-    }
-    .pill {
-      font-size:.75rem;
-      padding:.22rem .6rem;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.4);
-      cursor:pointer;
-      color:var(--muted);
-    }
-    .pill.active {
-      border-color:var(--accent);
-      color:var(--accent);
-      background:rgba(34,197,94,.08);
-    }
-    .idea { font-size:.8rem; margin-bottom:.45rem; }
-    .idea span { font-size:.72rem; color:var(--muted); }
-
-    /* Oyunlar & Araçlar */
+    /* Minik oyunlar / araçlar aynı önceki gibi */
     .tool-grid {
       display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
       gap:1rem;
     }
     .tool-card {
       background:#020617;
       border-radius:14px;
-      padding:.9rem 1rem 1rem;
+      padding:.9rem 1rem 1.1rem;
       border:1px solid rgba(55,65,81,.9);
       font-size:.8rem;
-      box-shadow:0 14px 32px rgba(0,0,0,.9);
     }
-    .tool-card h3 {
+    .tool-card h3,.tool-card h4 {
       font-size:.9rem;
-      margin-bottom:.3rem;
+      margin-bottom:.25rem;
       color:var(--accent2);
     }
-    .tool-card p { margin-bottom:.4rem; color:var(--muted); }
+    .tool-card p {
+      font-size:.8rem;
+      color:var(--muted);
+      margin-bottom:.3rem;
+    }
     .tool-card label {
       display:block;
-      margin-top:.35rem;
-      margin-bottom:.15rem;
+      margin-top:.3rem;
+      margin-bottom:.1rem;
     }
     .tool-card input,
     .tool-card select {
@@ -366,123 +336,132 @@
       min-height:1.1rem;
       word-break:break-all;
     }
+    .idea {
+      font-size:.82rem;
+      margin-bottom:.5rem;
+    }
+    .idea span {
+      font-size:.76rem;
+      color:var(--muted);
+    }
+    .pill-row {
+      display:flex;
+      flex-wrap:wrap;
+      gap:.4rem;
+      margin-bottom:.7rem;
+    }
+    .pill {
+      font-size:.75rem;
+      padding:.22rem .6rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.4);
+      cursor:pointer;
+      color:var(--muted);
+    }
+    .pill.active {
+      border-color:var(--accent);
+      color:var(--accent);
+      background:rgba(34,197,94,.08);
+    }
 
     footer {
-      margin-top:1.8rem;
+      margin-top:2rem;
       font-size:.78rem;
       color:var(--muted);
-      text-align:center;
-      padding-top:.8rem;
-      border-top:1px solid rgba(31,41,55,.85);
     }
   </style>
 </head>
 <body>
-<canvas id="code-rain"></canvas>
+  <canvas id="matrix"></canvas>
 
-<div class="app">
-  <!-- Sidebar -->
-  <aside class="sidebar">
-    <div class="logo-block">
-      <div class="logo-circle">R</div>
-      <div class="logo-text sidebar-labels">
-        <span>RUHBUDUR</span>
-        <span>Mini kod & araç sitesi</span>
-      </div>
-    </div>
-
-    <nav class="nav">
-      <button data-view="home" class="active">
-        <span class="icon">🏠</span>
-        <span class="label sidebar-labels">Ana sayfa</span>
-      </button>
-      <button data-view="snippets">
-        <span class="icon">{"</span>
-        <span class="label sidebar-labels">Kod parçacıkları</span>
-      </button>
-      <button data-view="games">
-        <span class="icon">🎮</span>
-        <span class="label sidebar-labels">Minik oyunlar</span>
-      </button>
-      <button data-view="ideas">
-        <span class="icon">💡</span>
-        <span class="label sidebar-labels">Proje fikirleri</span>
-      </button>
-      <button data-view="tools">
-        <span class="icon">🧰</span>
-        <span class="label sidebar-labels">Araç kutusu</span>
-      </button>
-    </nav>
-
-    <div class="sidebar-footer sidebar-labels">
-      Kurucu: <strong>ruhbudur</strong><br/>
-      Amaç: Kod meraklıları ve öğrenciler için<br/>küçük ama işe yarar bir site.
-    </div>
-  </aside>
-
-  <!-- Content -->
-  <main class="content">
-    <div class="content-inner">
-      <!-- ANA SAYFA -->
-      <section id="view-home" class="view active">
-        <h1>Basit ama işe yarar mini kod & araç sitesi.</h1>
-        <p class="lead">
-          Bu site, kod yazmaya yeni başlayanlar ve eğlence için ufak şeyler yapmak isteyenler için
-          hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve ders / tahta / sınıf ortamında
-          kullanılabilecek mini araçlardan oluşuyor.
-        </p>
-        <div class="chips">
-          <span class="chip blue">HTML · CSS · JavaScript</span>
-          <span class="chip green">Python & C++ örnekleri</span>
-          <span class="chip yellow">Eğlence + eğitim projeleri</span>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="logo">
+        <div class="logo-badge">R</div>
+        <div class="logo-text">
+          <span>RUHBUDUR</span>
+          <span>Mini kod & araç sitesi</span>
         </div>
+      </div>
+      <div class="nav">
+        <button class="nav-btn active" data-section="home"><span>🏠</span><span>Ana sayfa</span></button>
+        <button class="nav-btn" data-section="snippets"><span>💾</span><span>Kod parçacıkları</span></button>
+        <button class="nav-btn" data-section="games"><span>🎮</span><span>Minik oyunlar</span></button>
+        <button class="nav-btn" data-section="ideas"><span>💡</span><span>Proje fikirleri</span></button>
+        <button class="nav-btn" data-section="tools"><span>🧰</span><span>Araç kutusu</span></button>
+      </div>
+      <div class="sidebar-footer">
+        Kurucu: <strong>ruhbudur</strong><br/>
+        Kod yazmayı sevenler için küçük ama kullanışlı bir site.
+      </div>
+    </aside>
 
-        <div class="info-grid">
-          <div class="panel">
-            <h2>Sitede hangi bölümler var?</h2>
-            <p>Aşağıda her bölümün kısa özeti var; soldan menüden de tek tıkla gidebilirsin.</p>
-            <div class="home-cards">
-              <div class="home-card">
-                <h3>💻 Kod parçacıkları</h3>
-                <p>Python, JS ve C++ için sık kullanılan kod şablonları. Kopyala‑yapıştır ve dene.</p>
-              </div>
-              <div class="home-card">
-                <h3>🎮 Minik oyunlar</h3>
-                <p>Sayı tahmini, taş‑kağıt‑makas gibi küçük ama canlı çalışan JS oyunları.</p>
-              </div>
-              <div class="home-card">
-                <h3>💡 Proje fikirleri</h3>
-                <p>“Ne yazsam?” dediğinde seviyesine göre seçebileceğin mini proje fikirleri.</p>
-              </div>
-              <div class="home-card">
-                <h3>🧰 Araç kutusu</h3>
-                <p>Rastgele sayı üretici, şifre üretici, isim/öğrenci seçici gibi işine yarar araçlar.</p>
-              </div>
+    <main class="content">
+      <!-- ANA SAYFA -->
+      <section id="home" class="section active">
+        <div class="hero">
+          <div>
+            <h1>Basit ama işe yarar mini kod & araç sitesi.</h1>
+            <p>
+              Bu site, kod yazmaya yeni başlayanlar ve eğlence için ufak scriptler yazmak isteyenler için
+              hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve ders / tahta / sınıf ortamında
+              kullanılabilecek mini araçlardan oluşuyor.
+            </p>
+            <div class="pill-row-top">
+              <span class="pill-top">HTML · CSS · JavaScript</span>
+              <span class="pill-top">Python & C++ örnekleri</span>
+              <span class="pill-top">Eğlence + eğitim projeleri</span>
             </div>
           </div>
-
-          <div class="panel">
-            <h2>Bu site neden var?</h2>
-            <ul>
-              <li>Arkadaşlara “bak bunu yazdım” diyebileceğin bir kod alanı olsun diye.</li>
-              <li>Derse veya akıllı tahtaya hızlıca açıp kullanabileceğin küçük araçlar için.</li>
-              <li>“Ne projesi yapsam?” dediğinde sıkılıp gitme, al bir fikir diye.</li>
-              <li>Tamamen ücretsiz, reklamsız ve sadece tarayıcıyla çalışan bir yer olsun diye.</li>
-            </ul>
+          <div class="hero-grid">
+            <div class="panel">
+              <h2>Sitede hangi bölümler var?</h2>
+              <p>Aşağıda her bölümün kısa özeti yazıyor. Soldan menüden de tek tık ile gidebilirsin.</p>
+              <div class="home-cards" style="margin-top:.8rem;">
+                <div class="home-card">
+                  <h3><span class="badge-dot b1"></span>Kod parçacıkları</h3>
+                  <p>Python, JS ve C++ için sık kullanılan kod şablonları. Kopyala–yapıştır hazır.</p>
+                </div>
+                <div class="home-card">
+                  <h3><span class="badge-dot b2"></span>Minik oyunlar</h3>
+                  <p>Sayı tahmin, taş-kağıt-makas gibi tamamen tarayıcıda çalışan JS oyunları.</p>
+                </div>
+                <div class="home-card">
+                  <h3><span class="badge-dot b3"></span>Proje fikirleri</h3>
+                  <p>“Ne yazsam?” dediğinde seçebileceğin seviye seviyeye mini proje fikirleri.</p>
+                </div>
+                <div class="home-card">
+                  <h3><span class="badge-dot b4"></span>Araç kutusu</h3>
+                  <p>Rastgele sayı üretici, isim/öğrenci seçici, güçlü şifre üretici gibi küçük ama işe yarar araçlar.</p>
+                </div>
+              </div>
+            </div>
+            <div class="panel">
+              <h2>Bu site neden var?</h2>
+              <ul>
+                <li>Arkadaşlara “bak bunu yazdım” diyebileceğin tiny kod alanı olsun diye.</li>
+                <li>Derse veya akıllı tahtada hızlıca açıp kullanabileceğin küçük araçlar için.</li>
+                <li>“Ne proje yazsam?” dediğinde aklına fikri gelsin diye.</li>
+                <li>Tamamen ücretsiz, reklamsız ve sadece tarayıcıyla çalışan bir yer olsun diye.</li>
+              </ul>
+            </div>
           </div>
         </div>
 
-        <h2 class="section-heading">Nasıl katkı verebilirsin?</h2>
+        <h2 class="section-title">Nasıl katkı verebilirsin?</h2>
         <p class="section-sub">
-          Kendi yazdığın minik oyun, araç veya kod parçacığını da eklemek istiyorsan;
-          bana kodu gönder, birlikte düzenleriz. İleride bu site tamamen topluluk projesi de olabilir.
+          Kendi yazdığın minik oyun, araç veya kod parçacığını da eklemek istersen bana iletebilirsin;
+          ileride bu site tamamen topluluk projesi de olabilir.
         </p>
+        <footer>
+          Bu site HTML/CSS/JS + GitHub + Netlify ile hazırlandı.
+        </footer>
       </section>
 
-      <!-- KOD PARÇACIKLARI -->
-      <section id="view-snippets" class="view">
+      <!-- KOD PARÇACIKLARI SAYFASI -->
+      <section id="snippets" class="section">
         <h1>Kod parçacıkları</h1>
-        <p class="lead">Sık lazım olan minik kodlar. Üstteki butonla hızlıca panoya kopyalayabilirsin.</p>
+        <p class="section-sub">Sık lazım olan kısa kodlar. Butona tıklayıp kopyala–yapıştır kullan.</p>
 
         <div class="snippet">
           <div class="snippet-header">
@@ -497,7 +476,7 @@ print(&quot;Tuttuğum sayı:&quot;, sayi)</code></pre>
 
         <div class="snippet">
           <div class="snippet-header">
-            <div>Python – Dosya satır satır okuma</div>
+            <div>Python – Dosyadan satır satır okuma</div>
             <button class="btn-copy" data-target="py-file">Kopyala</button>
           </div>
           <pre><code id="py-file">with open(&quot;dosya.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
@@ -539,10 +518,10 @@ int main() {
         </div>
       </section>
 
-      <!-- MINIK OYUNLAR -->
-      <section id="view-games" class="view">
+      <!-- MİNİK OYUNLAR -->
+      <section id="games" class="section">
         <h1>Minik oyunlar</h1>
-        <p class="lead">Hepsi tarayıcıda çalışan basit JavaScript oyunları. Kodlarını da inceleyebilirsin.</p>
+        <p class="section-sub">Tamamen tarayıcıda çalışan ufak oyunlar.</p>
 
         <div class="tool-grid">
           <div class="tool-card">
@@ -569,10 +548,10 @@ int main() {
         </div>
       </section>
 
-      <!-- PROJE FIKIRLERI -->
-      <section id="view-ideas" class="view">
+      <!-- PROJE FİKİRLERİ -->
+      <section id="ideas" class="section">
         <h1>Proje fikirleri</h1>
-        <p class="lead">“Ne yazsam?” dediğinde bakmalık kısa fikirler. Seviyene göre seç, ufak ufak ilerle.</p>
+        <p class="section-sub">Ne yazsam? dediğinde seçip başlayabileceğin küçük projeler.</p>
 
         <div class="pill-row">
           <div class="pill active" data-lang="all">Hepsi</div>
@@ -583,40 +562,40 @@ int main() {
 
         <div id="ideas-list">
           <div class="idea" data-lang="py">
-            <strong>1. Not defteri + arama (PY)</strong> –
-            <span>Dosyaya kaydeden, içinde arama yapabilen basit CLI veya Tkinter uygulaması.</span>
+            <strong>1. Quiz uygulaması (PY)</strong> –
+            <span>Soruları JSON’dan okuyup puan hesaplayan, yanlışları gösteren test sistemi.</span>
           </div>
           <div class="idea" data-lang="py">
-            <strong>2. Quiz uygulaması (PY)</strong> –
-            <span>Soruları JSON’dan okuyup puan hesaplayan, yanlışları gösteren test sistemi.</span>
+            <strong>2. Dosya yedekleyici (PY)</strong> –
+            <span>Belirli klasörleri .zip’e alıp tarihli şekilde kaydeden script.</span>
           </div>
           <div class="idea" data-lang="js">
             <strong>3. Pomodoro zamanlayıcı (JS)</strong> –
-            <span>25 dk çalışma, 5 dk mola; ilerlemeyi localStorage’da tutan web uygulaması.</span>
+            <span>25 dk çalışma, 5 dk mola; ilerlemeyi localStorage’da tutan web app.</span>
           </div>
           <div class="idea" data-lang="js">
-            <strong>4. Sürükle-bırak yapılacaklar listesi (JS)</strong> –
-            <span>Görevleri fareyle sıralayabildiğin, tamamlandı işaretleyebildiğin todo app.</span>
+            <strong>4. Sürükle-bırak yapılacak listesi (JS)</strong> –
+            <span>Görevleri fareyle sıralayıp tamamlayabildiğin todo uygulaması.</span>
           </div>
           <div class="idea" data-lang="cpp">
             <strong>5. Konsol satranç skoru takipçisi (C++)</strong> –
-            <span>Oyun sonuçlarını kaydeden, ELO benzeri basit puanlama yapan CLI program.</span>
+            <span>Oyun sonuçlarını kaydeden, basit ELO hesabı yapan CLI program.</span>
           </div>
           <div class="idea" data-lang="cpp">
             <strong>6. Dosya şifreleme aracı (C++)</strong> –
-            <span>Basit XOR / Caesar cipher mantığıyla metin dosyalarını şifreleyip çözen araç.</span>
+            <span>XOR / Caesar cipher mantığıyla metin dosyalarını şifreleyip çözen araç.</span>
           </div>
         </div>
       </section>
 
-      <!-- ARAC KUTUSU -->
-      <section id="view-tools" class="view">
+      <!-- ARAÇ KUTUSU -->
+      <section id="tools" class="section">
         <h1>Araç kutusu</h1>
-        <p class="lead">Ders, oyun veya günlük kullanım için minik ama işe yarar araçlar.</p>
+        <p class="section-sub">Ders, oyun veya günlük kullanım için ufak araçlar.</p>
 
         <div class="tool-grid">
           <div class="tool-card">
-            <h3>Rastgele sayı üretici</h3>
+            <h4>Rastgele sayı</h4>
             <label>Alt sınır:</label>
             <input id="rand-min" type="number" value="1" />
             <label>Üst sınır:</label>
@@ -626,8 +605,8 @@ int main() {
           </div>
 
           <div class="tool-card">
-            <h3>Öğrenci / kişi seçici</h3>
-            <p style="margin-bottom:.35rem;">İsimleri virgülle yaz, rastgele birini seçecek.</p>
+            <h4>Öğrenci / kişi seçici</h4>
+            <p>İsimleri virgülle yaz, rastgele birini seçelim.</p>
             <label>İsimler:</label>
             <input id="picker-input" type="text" placeholder="Ali, Ayşe, Veli, ..." />
             <button class="btn-small" id="picker-btn">Seç</button>
@@ -635,7 +614,7 @@ int main() {
           </div>
 
           <div class="tool-card">
-            <h3>Güçlü şifre üretici</h3>
+            <h4>Güçlü şifre üretici</h4>
             <label>Uzunluk:</label>
             <input id="pw-length" type="number" value="12" min="6" max="40" />
             <button class="btn-small" id="pw-btn">Şifre üret</button>
@@ -643,205 +622,192 @@ int main() {
           </div>
         </div>
       </section>
+    </main>
+  </div>
 
-      <footer>
-        ruhbudur · Bu site HTML/CSS/JS + GitHub + Netlify ile hazırlandı.
-      </footer>
-    </div>
-  </main>
-</div>
-
-<script>
-  // Kod yağmuru (Matrix tarzı)
-  const canvas = document.getElementById("code-rain");
-  const ctx = canvas.getContext("2d");
-  let width, height, columns, drops;
-  const chars = "01{}[]()<>;=+-*/$#";
-
-  function initRain() {
-    width = canvas.width = window.innerWidth;
-    height = canvas.height = window.innerHeight;
-    columns = Math.floor(width / 16);
-    drops = Array(columns).fill(0);
-  }
-  window.addEventListener("resize", initRain);
-  initRain();
-
-  function drawRain() {
-    ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
-    ctx.fillRect(0, 0, width, height);
-    ctx.fillStyle = "#22c55e";
-    ctx.font = "14px monospace";
-
-    for (let i = 0; i < columns; i++) {
-      const text = chars.charAt(Math.floor(Math.random() * chars.length));
-      const x = i * 16;
-      const y = drops[i] * 16;
-      ctx.fillText(text, x, y);
-      if (y > height && Math.random() > 0.975) {
-        drops[i] = 0;
-      }
-      drops[i]++;
+  <script>
+    // Matrix code yağmuru
+    const canvas = document.getElementById('matrix');
+    const ctx = canvas.getContext('2d');
+    const letters = "01{}[]<>/=+*-_#@$&";
+    let drops = [];
+    function resize() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const columns = Math.floor(canvas.width / 14);
+      drops = Array(columns).fill(1);
     }
-    requestAnimationFrame(drawRain);
-  }
-  drawRain();
+    window.addEventListener('resize', resize);
+    resize();
+    function drawMatrix() {
+      ctx.fillStyle = "rgba(0, 0, 0, 0.18)";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#22c55e";
+      ctx.font = "13px monospace";
+      for (let i = 0; i < drops.length; i++) {
+        const text = letters[Math.floor(Math.random() * letters.length)];
+        const x = i * 14;
+        const y = drops[i] * 14;
+        ctx.fillText(text, x, y);
+        if (y > canvas.height && Math.random() > 0.96) {
+          drops[i] = 0;
+        }
+        drops[i]++;
+      }
+      requestAnimationFrame(drawMatrix);
+    }
+    drawMatrix();
 
-  // Sidebar view switch
-  const navButtons = document.querySelectorAll(".nav button");
-  const views = document.querySelectorAll(".view");
-
-  navButtons.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const view = btn.getAttribute("data-view");
-      navButtons.forEach(b => b.classList.remove("active"));
-      btn.classList.add("active");
-      views.forEach(v => {
-        v.classList.toggle("active", v.id === "view-" + view);
+    // Sol menü: sayfalar arası geçiş
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const sections = document.querySelectorAll('.section');
+    navButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const target = btn.getAttribute('data-section');
+        navButtons.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        sections.forEach(sec => {
+          sec.classList.toggle('active', sec.id === target);
+        });
       });
     });
-  });
 
-  // Kopyala butonları
-  document.querySelectorAll(".btn-copy").forEach(btn => {
-    btn.addEventListener("click", () => {
-      const id = btn.getAttribute("data-target");
-      const codeEl = document.getElementById(id);
-      const text = codeEl.innerText;
-      navigator.clipboard.writeText(text).then(() => {
-        const old = btn.textContent;
-        btn.textContent = "Kopyalandı!";
-        setTimeout(() => (btn.textContent = old), 900);
+    // Kopyala butonları
+    document.querySelectorAll(".btn-copy").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-target");
+        const codeEl = document.getElementById(id);
+        const text = codeEl.innerText;
+        navigator.clipboard.writeText(text).then(() => {
+          const old = btn.textContent;
+          btn.textContent = "Kopyalandı!";
+          setTimeout(() => (btn.textContent = old), 1000);
+        });
       });
     });
-  });
 
-  // Sayı tahmin oyunu
-  let secret = Math.floor(Math.random() * 100) + 1;
-  const guessInput = document.getElementById("guess-input");
-  const guessBtn = document.getElementById("guess-btn");
-  const guessOut = document.getElementById("guess-output");
-
-  if (guessBtn) {
-    guessBtn.addEventListener("click", () => {
-      const val = Number(guessInput.value);
-      if (!val || val < 1 || val > 100) {
-        guessOut.textContent = "1–100 arasında bir sayı gir.";
-        guessOut.style.color = "#f97316";
-        return;
-      }
-      if (val === secret) {
-        guessOut.textContent = "Doğru! Yeni sayı tuttum.";
-        guessOut.style.color = "#22c55e";
-        secret = Math.floor(Math.random() * 100) + 1;
-      } else if (val < secret) {
-        guessOut.textContent = "Daha büyük dene.";
-        guessOut.style.color = "#eab308";
-      } else {
-        guessOut.textContent = "Daha küçük dene.";
-        guessOut.style.color = "#eab308";
-      }
-    });
-  }
-
-  // Taş kağıt makas
-  const rpsSelect = document.getElementById("rps-select");
-  const rpsBtn = document.getElementById("rps-btn");
-  const rpsOut = document.getElementById("rps-output");
-  const rpsMap = { tas: "Taş", kagit: "Kağıt", makas: "Makas" };
-
-  function rpsScore(player, bot) {
-    if (player === bot) return "Berabere.";
-    if (
-      (player === "tas" && bot === "makas") ||
-      (player === "kagit" && bot === "tas") ||
-      (player === "makas" && bot === "kagit")
-    ) return "Kazandın!";
-    return "Kaybettin.";
-  }
-
-  if (rpsBtn) {
-    rpsBtn.addEventListener("click", () => {
-      const player = rpsSelect.value;
-      const arr = ["tas", "kagit", "makas"];
-      const bot = arr[Math.floor(Math.random() * arr.length)];
-      const sonuc = rpsScore(player, bot);
-      rpsOut.textContent = `Sen: ${rpsMap[player]} · Bot: ${rpsMap[bot]} → ${sonuc}`;
-    });
-  }
-
-  // Proje fikirleri filtresi
-  const pills = document.querySelectorAll(".pill");
-  const ideas = document.querySelectorAll(".idea");
-
-  pills.forEach(p => {
-    p.addEventListener("click", () => {
-      pills.forEach(x => x.classList.remove("active"));
-      p.classList.add("active");
-      const lang = p.getAttribute("data-lang");
-      ideas.forEach(i => {
-        if (lang === "all" || i.getAttribute("data-lang") === lang) {
-          i.style.display = "";
+    // Sayı tahmin oyunu
+    let secret = Math.floor(Math.random() * 100) + 1;
+    const guessInput = document.getElementById("guess-input");
+    const guessBtn = document.getElementById("guess-btn");
+    const guessOut = document.getElementById("guess-output");
+    if (guessBtn) {
+      guessBtn.addEventListener("click", () => {
+        const val = Number(guessInput.value);
+        if (!val || val < 1 || val > 100) {
+          guessOut.textContent = "1–100 arasında bir sayı gir.";
+          guessOut.style.color = "#f97316";
+          return;
+        }
+        if (val === secret) {
+          guessOut.textContent = "Doğru! Yeni sayı tuttum.";
+          guessOut.style.color = "#22c55e";
+          secret = Math.floor(Math.random() * 100) + 1;
+        } else if (val < secret) {
+          guessOut.textContent = "Daha büyük dene.";
+          guessOut.style.color = "#eab308";
         } else {
-          i.style.display = "none";
+          guessOut.textContent = "Daha küçük dene.";
+          guessOut.style.color = "#eab308";
         }
       });
-    });
-  });
+    }
 
-  // Araç: rastgele sayı
-  const randBtn = document.getElementById("rand-btn");
-  if (randBtn) {
-    randBtn.addEventListener("click", () => {
-      const min = Number(document.getElementById("rand-min").value) || 0;
-      const max = Number(document.getElementById("rand-max").value) || 0;
-      const out = document.getElementById("rand-out");
-      if (max <= min) {
-        out.style.color = "#f97316";
-        out.textContent = "Üst sınır alt sınırdan büyük olmalı.";
-        return;
-      }
-      const n = Math.floor(Math.random() * (max - min + 1)) + min;
-      out.style.color = "#22c55e";
-      out.textContent = `Sonuç: ${n}`;
-    });
-  }
+    // Taş kağıt makas
+    const rpsSelect = document.getElementById("rps-select");
+    const rpsBtn = document.getElementById("rps-btn");
+    const rpsOut = document.getElementById("rps-output");
+    const rpsMap = { tas: "Taş", kagit: "Kağıt", makas: "Makas" };
+    function rpsScore(player, bot) {
+      if (player === bot) return "Berabere.";
+      if (
+        (player === "tas" && bot === "makas") ||
+        (player === "kagit" && bot === "tas") ||
+        (player === "makas" && bot === "kagit")
+      ) return "Kazandın!";
+      return "Kaybettin.";
+    }
+    if (rpsBtn) {
+      rpsBtn.addEventListener("click", () => {
+        const player = rpsSelect.value;
+        const arr = ["tas", "kagit", "makas"];
+        const bot = arr[Math.floor(Math.random() * arr.length)];
+        const sonuc = rpsScore(player, bot);
+        rpsOut.textContent = `Sen: ${rpsMap[player]} · Bot: ${rpsMap[bot]} → ${sonuc}`;
+      });
+    }
 
-  // Araç: kişi seçici
-  const pickerBtn = document.getElementById("picker-btn");
-  if (pickerBtn) {
-    pickerBtn.addEventListener("click", () => {
-      const val = document.getElementById("picker-input").value;
-      const out = document.getElementById("picker-out");
-      const names = val.split(",").map(x => x.trim()).filter(Boolean);
-      if (!names.length) {
-        out.style.color = "#f97316";
-        out.textContent = "Önce birkaç isim yaz.";
-        return;
-      }
-      const pick = names[Math.floor(Math.random() * names.length)];
-      out.style.color = "#22c55e";
-      out.textContent = `Seçilen: ${pick}`;
+    // Proje fikirleri filtresi
+    const pills = document.querySelectorAll(".pill");
+    const ideas = document.querySelectorAll(".idea");
+    pills.forEach(p => {
+      p.addEventListener("click", () => {
+        pills.forEach(x => x.classList.remove("active"));
+        p.classList.add("active");
+        const lang = p.getAttribute("data-lang");
+        ideas.forEach(i => {
+          if (lang === "all" || i.getAttribute("data-lang") === lang) {
+            i.style.display = "";
+          } else {
+            i.style.display = "none";
+          }
+        });
+      });
     });
-  }
 
-  // Araç: şifre üretici
-  const pwBtn = document.getElementById("pw-btn");
-  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+?";
-  if (pwBtn) {
-    pwBtn.addEventListener("click", () => {
-      let len = Number(document.getElementById("pw-length").value) || 12;
-      if (len < 6) len = 6;
-      if (len > 40) len = 40;
-      let pw = "";
-      for (let i = 0; i < len; i++) {
-        pw += chars[Math.floor(Math.random() * chars.length)];
-      }
-      const out = document.getElementById("pw-out");
-      out.style.color = "#22c55e";
-      out.textContent = pw;
-    });
-  }
-</script>
+    // Araç kutusu – rastgele sayı
+    const randBtn = document.getElementById("rand-btn");
+    if (randBtn) {
+      randBtn.addEventListener("click", () => {
+        const min = Number(document.getElementById("rand-min").value) || 0;
+        const max = Number(document.getElementById("rand-max").value) || 0;
+        const out = document.getElementById("rand-out");
+        if (max <= min) {
+          out.style.color = "#f97316";
+          out.textContent = "Üst sınır alt sınırdan büyük olmalı.";
+          return;
+        }
+        const n = Math.floor(Math.random() * (max - min + 1)) + min;
+        out.style.color = "#22c55e";
+        out.textContent = `Sonuç: ${n}`;
+      });
+    }
+
+    // Öğrenci seçici
+    const pickBtn = document.getElementById("picker-btn");
+    if (pickBtn) {
+      pickBtn.addEventListener("click", () => {
+        const val = document.getElementById("picker-input").value;
+        const out = document.getElementById("picker-out");
+        const names = val.split(",").map(x => x.trim()).filter(Boolean);
+        if (!names.length) {
+          out.style.color = "#f97316";
+          out.textContent = "Önce birkaç isim yaz.";
+          return;
+        }
+        const pick = names[Math.floor(Math.random() * names.length)];
+        out.style.color = "#22c55e";
+        out.textContent = `Seçilen: ${pick}`;
+      });
+    }
+
+    // Şifre üretici
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+?";
+    const pwBtn = document.getElementById("pw-btn");
+    if (pwBtn) {
+      pwBtn.addEventListener("click", () => {
+        let len = Number(document.getElementById("pw-length").value) || 12;
+        if (len < 6) len = 6;
+        if (len > 40) len = 40;
+        let pw = "";
+        for (let i = 0; i < len; i++) {
+          pw += chars[Math.floor(Math.random() * chars.length)];
+        }
+        const out = document.getElementById("pw-out");
+        out.style.color = "#22c55e";
+        out.textContent = pw;
+      });
+    }
+  </script>
 </body>
 </html>
