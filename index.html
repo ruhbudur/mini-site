@@ -3,58 +3,78 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>RUH BUDUR – Mini Kod & Araç</title>
+  <title>Ana sayfa – Mini Kod & Araç</title>
   <style>
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', system-ui, sans-serif;
-      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-      min-height: 100vh;
-      color: #e4e4e4;
+    body { margin: 0; font-family: 'Segoe UI', system-ui, sans-serif; background: #1a1a2e; color: #e8e8e8; }
+    .layout { display: flex; min-height: 100vh; }
+    .sidebar {
+      width: 240px;
+      background: #16162a;
+      padding: 1.5rem 1rem;
+      border-right: 1px solid #2a2a4a;
+    }
+    .sidebar .logo { font-size: 1.5rem; font-weight: 700; color: #00d9ff; margin-bottom: 0.25rem; }
+    .sidebar .tagline { font-size: 0.8rem; opacity: 0.8; margin-bottom: 1.5rem; }
+    .sidebar nav a {
+      display: block;
+      padding: 0.6rem 0.75rem;
+      color: #b0b0c0;
+      text-decoration: none;
+      border-radius: 8px;
+      margin-bottom: 0.25rem;
+    }
+    .sidebar nav a:hover { color: #00d9ff; background: rgba(0,217,255,0.1); }
+    .sidebar nav a.aktif { color: #00d9ff; background: rgba(0,217,255,0.15); }
+    .main {
+      flex: 1;
       padding: 2rem;
+      overflow: auto;
     }
-    .container { max-width: 900px; margin: 0 auto; }
-    h1 {
-      font-size: 2rem;
-      margin-bottom: 0.5rem;
-      color: #00d9ff;
-    }
-    .sub { opacity: 0.85; margin-bottom: 2rem; }
-    nav {
+    .main h1 { color: #b8e0ff; margin-bottom: 0.5rem; }
+    .main .sub { opacity: 0.85; margin-bottom: 2rem; }
+    .kartlar {
       display: grid;
       gap: 1rem;
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
     }
-    nav a {
+    .kartlar a {
       display: block;
       padding: 1.2rem 1.5rem;
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(0,217,255,0.3);
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(0,217,255,0.25);
       border-radius: 12px;
       color: #00d9ff;
       text-decoration: none;
       font-weight: 600;
       transition: background 0.2s, transform 0.2s;
     }
-    nav a:hover {
-      background: rgba(0,217,255,0.15);
-      transform: translateY(-2px);
-    }
-    footer { margin-top: 3rem; font-size: 0.9rem; opacity: 0.7; }
+    .kartlar a:hover { background: rgba(0,217,255,0.12); transform: translateY(-2px); }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>RUH BUDUR</h1>
-    <p class="sub">Mini Kod & Araç Kutusu</p>
-    <nav>
-      <a href="kod-parcaciklari.html">Kod Parçacığı Arşivi</a>
-      <a href="minik-oyunlar.html">Canlı Kod Oyunları</a>
-      <a href="proje-fikirleri.html">Proje Fikirleri</a>
-      <a href="arac-kutusu.html">Kendi Araç Kutusu</a>
-    </nav>
-    <footer>GitHub Pages · ruhbudur/mini-site</footer>
+  <div class="layout">
+    <aside class="sidebar">
+      <div class="logo">RUHBUDUR</div>
+      <div class="tagline">Mini kod & araç sitesi</div>
+      <nav>
+        <a href="index.html" class="aktif">Ana sayfa</a>
+        <a href="kod_parcaciklari.html">Kod parçacıkları</a>
+        <a href="minik_oyunlar.html">Minik oyunlar</a>
+        <a href="proje_fikirleri.html">Proje fikirleri</a>
+        <a href="arac_kutusu.html">Araç kutusu</a>
+      </nav>
+    </aside>
+    <main class="main">
+      <h1>Hoş geldin</h1>
+      <p class="sub">Aşağıdaki bölümlere hızlıca gidebilirsin.</p>
+      <div class="kartlar">
+        <a href="kod_parcaciklari.html">Kod Parçacığı Arşivi</a>
+        <a href="minik_oyunlar.html">Canlı Kod Oyunları</a>
+        <a href="proje_fikirleri.html">Proje Fikirleri</a>
+        <a href="arac_kutusu.html">Kendi Araç Kutusu</a>
+      </div>
+    </main>
   </div>
 </body>
 </html>
