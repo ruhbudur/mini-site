@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Araç kutusu · RUHBUDUR</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="logo-block">
+          <div class="logo-circle">R</div>
+          <div class="logo-text">
+            <span>RUHBUDUR</span>
+            <span>Mini kod & araç sitesi</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="index.html">Ana sayfa</a>
+          <a href="kod-parcaciklari.html">Kod parçacıkları</a>
+          <a href="minik-oyunlar.html">Minik oyunlar</a>
+          <a href="proje-fikirleri.html">Proje fikirleri</a>
+          <a href="arac-kutusu.html" class="active">Araç kutusu</a>
+        </nav>
+      </div>
+      <div class="sidebar-footer">
+        Ders, oyun veya günlük kullanım için ufak araçlar.
+        Hepsi sadece tarayıcıyla çalışır; ekstra program gerekmez.
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="section">
+        <h1>Araç kutusu</h1>
+        <p class="tagline">
+          Özel bir uygulama indirmeden browser üzerinden kullanabileceğin
+          küçük ama faydalı mini araçlar.
+        </p>
+      </section>
+
+      <section class="section">
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h3>Rastgele sayı üretici</h3>
+            <p>
+              Verdiğin aralıkta rastgele sayı üretir. Sınavlarda veya
+              oyunlarda sıra belirlemek için kullanılabilir.
+            </p>
+            <label>Alt sınır:</label>
+            <input id="rand-min" type="number" value="1" />
+            <label>Üst sınır:</label>
+            <input id="rand-max" type="number" value="100" />
+            <button class="btn-small" id="rand-btn">Üret</button>
+            <div class="tool-output" id="rand-out"></div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Öğrenci / kişi seçici</h3>
+            <p>
+              İsimleri virgülle ayırarak yaz; rastgele birini seçer.
+              Akıllı tahtada çok rahat kullanılabilir.
+            </p>
+            <label>İsimler:</label>
+            <input id="picker-input" type="text" placeholder="Ali, Ayşe, Veli, ..." />
+            <button class="btn-small" id="picker-btn">Seç</button>
+            <div class="tool-output" id="picker-out"></div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Güçlü şifre üretici</h3>
+            <p>
+              Rastgele harf, rakam ve sembollerden güçlü şifre üretir.
+              Uzunluğu kendin belirleyebilirsin.
+            </p>
+            <label>Uzunluk:</label>
+            <input id="pw-length" type="number" value="12" min="6" max="40" />
+            <button class="btn-small" id="pw-btn">Şifre üret</button>
+            <div class="tool-output" id="pw-out"></div>
+          </div>
+        </div>
+      </section>
+
+      <footer>
+        Araç kutusu sayfası · Yeni araç fikirlerin olduğunda bu sayfaya ekleyebilirsin.
+      </footer>
+    </main>
+  </div>
+  <script src="script-common.js" type="module"></script>
+  <script>
+    // Rastgele sayı
+    document.getElementById("rand-btn").addEventListener("click", () => {
+      const min = Number(document.getElementById("rand-min").value) || 0;
+      const max = Number(document.getElementById("rand-max").value) || 0;
+      const out = document.getElementById("rand-out");
+      if (max <= min) {
+        out.style.color = "#f97316";
+        out.textContent = "Üst sınır alt sınırdan büyük olmalı.";
+        return;
+      }
+      const n = Math.floor(Math.random() * (max - min + 1)) + min;
+      out.style.color = "#22c55e";
+      out.textContent = `Sonuç: ${n}`;
+    });
+
+    // Öğrenci seçici
+    document.getElementById("picker-btn").addEventListener("click", () => {
+      const val = document.getElementById("picker-input").value;
+      const out = document.getElementById("picker-out");
+      const names = val.split(",").map(x => x.trim()).filter(Boolean);
+      if (!names.length) {
+        out.style.color = "#f97316";
+        out.textContent = "Önce birkaç isim yaz.";
+        return;
+      }
+      const pick = names[Math.floor(Math.random() * names.length)];
+      out.style.color = "#22c55e";
+      out.textContent = `Seçilen: ${pick}`;
+    });
+
+    // Şifre üretici
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+?";
+    document.getElementById("pw-btn").addEventListener("click", () => {
+      let len = Number(document.getElementById("pw-length").value) || 12;
+      if (len < 6) len = 6;
+      if (len > 40) len = 40;
+      let pw = "";
+      for (let i = 0; i < len; i++) {
+        pw += chars[Math.floor(Math.random() * chars.length)];
+      }
+      const out = document.getElementById("pw-out");
+      out.style.color = "#22c55e";
+      out.textContent = pw;
+    });
+  </script>
+</body>
+</html>
