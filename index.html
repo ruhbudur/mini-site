@@ -7,7 +7,7 @@
   <style>
     :root {
       --bg: #020617;
-      --bg2: #0f172a;
+      --bg2: #020617;
       --card: #020617;
       --accent: #22c55e;
       --accent2: #38bdf8;
@@ -19,39 +19,97 @@
     * { box-sizing: border-box; margin: 0; padding: 0; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #0f172a, #020617 55%, #000 100%);
+      background: radial-gradient(circle at top, #020617, #000 65%);
       color: var(--text);
       min-height: 100vh;
+      overflow-x: hidden;
     }
     a { color: inherit; text-decoration: none; }
-    .page {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 1.8rem 1.4rem 3rem;
+
+    /* CODE RAIN BACKGROUND */
+    .bg-layer {
+      position: fixed;
+      inset: 0;
+      overflow: hidden;
+      pointer-events: none;
+      z-index: -2;
+      background: radial-gradient(circle at top, #0f172a, #020617 55%, #000 100%);
     }
-    header {
+    .code-rain {
+      position: absolute;
+      width: 200%;
+      height: 200%;
+      top: -50%;
+      left: -50%;
+      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+      font-size: 11px;
+      color: rgba(34,197,94,0.24);
+      line-height: 1.4;
+      white-space: pre;
+      animation: rain 22s linear infinite;
+    }
+    @keyframes rain {
+      from { transform: translateY(-10%) translateX(0); }
+      to   { transform: translateY(35%) translateX(12%); }
+    }
+
+    /* LAYOUT */
+    .layout {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      min-height: 100vh;
+      position: relative;
+      z-index: 1;
+    }
+    @media (max-width: 850px) {
+      .layout {
+        grid-template-columns: 1fr;
+      }
+      .sidebar {
+        position: static;
+        width: 100%;
+        height: auto;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        padding: .8rem 1.2rem;
+      }
+      .nav-links {
+        flex-direction: row;
+        flex-wrap: wrap;
+        gap: .4rem;
+        margin-top: 0;
+      }
+    }
+
+    .sidebar {
+      background: rgba(15,23,42,0.96);
+      border-right: 1px solid rgba(31,41,55,0.9);
+      padding: 1.2rem 1.1rem 1.5rem;
       display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 2rem;
-      gap: 1rem;
+      flex-direction: column;
+      gap: 1.2rem;
+      position: sticky;
+      top: 0;
+      height: 100vh;
     }
     .logo {
       display: flex;
       align-items: center;
-      gap: .6rem;
+      gap: .65rem;
     }
     .logo-badge {
-      width: 34px;
-      height: 34px;
+      width: 36px;
+      height: 36px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #22c55e, #22c55e 35%, #0ea5e9);
+      background: radial-gradient(circle at 30% 20%, #22c55e, #22c55e 40%, #22c55e 60%, #0ea5e9);
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: 800;
-      color: #0b1120;
-      box-shadow: 0 0 18px rgba(34,197,94,.7);
+      color: #020617;
+      box-shadow: 0 0 24px rgba(34,197,94,0.9);
+      font-size: 1.1rem;
     }
     .logo-text {
       display: flex;
@@ -59,109 +117,127 @@
     }
     .logo-text span:first-child {
       font-weight: 700;
-      letter-spacing: .05em;
-      font-size: .98rem;
+      letter-spacing: .06em;
+      font-size: .9rem;
     }
     .logo-text span:last-child {
       font-size: .78rem;
       color: var(--muted);
     }
-    nav {
+
+    .nav-links {
       display: flex;
-      gap: .7rem;
-      flex-wrap: wrap;
-      justify-content: flex-end;
+      flex-direction: column;
+      gap: .35rem;
+      margin-top: .5rem;
     }
-    nav a {
-      font-size: .8rem;
-      padding: .3rem .7rem;
+    .nav-links a {
+      font-size: .82rem;
+      padding: .34rem .6rem;
       border-radius: 999px;
-      border: 1px solid rgba(148,163,184,.3);
+      border: 1px solid transparent;
       color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: .4rem;
     }
-    nav a:hover {
-      border-color: var(--accent2);
+    .nav-links a span.icon {
+      width: 16px;
+      text-align: center;
+      font-size: .88rem;
+    }
+    .nav-links a:hover {
+      border-color: rgba(56,189,248,0.7);
       color: var(--accent2);
+      background: rgba(15,23,42,0.9);
+    }
+    .nav-links a.active {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: rgba(22,163,74,0.12);
     }
 
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: .75rem;
+      color: var(--muted);
+    }
+
+    .main {
+      padding: 1.7rem 1.7rem 2.8rem;
+      max-width: 1040px;
+      width: 100%;
+      margin: 0 auto;
+    }
+    @media (max-width: 850px) {
+      .main { padding: 1.1rem 1.3rem 2.3rem; }
+    }
+
+    /* HERO / ANA SAYFA */
     .hero {
       display: grid;
-      grid-template-columns: minmax(0,2.1fr) minmax(0,2fr);
+      grid-template-columns: minmax(0, 2.1fr) minmax(0, 2fr);
       gap: 1.8rem;
       align-items: center;
-      margin-bottom: 2.4rem;
+      margin-bottom: 2.3rem;
     }
-    @media (max-width: 800px) {
-      .hero { grid-template-columns: 1fr; }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr; gap: 1.4rem; }
     }
     .hero h1 {
-      font-size: clamp(1.7rem, 3vw, 2.2rem);
+      font-size: clamp(1.8rem, 3vw, 2.3rem);
       margin-bottom: .6rem;
     }
     .hero p {
       font-size: .95rem;
       color: var(--muted);
-      max-width: 36rem;
+      max-width: 38rem;
     }
     .hero-tags {
-      margin-top: 1rem;
-      display: flex;
-      flex-wrap: wrap;
-      gap: .5rem;
+      margin-top: .85rem;
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
     }
     .hero-tags span {
-      font-size: .78rem;
-      padding: .25rem .6rem;
-      border-radius: 999px;
-      border: 1px solid rgba(148,163,184,.4);
+      font-size:.78rem;
+      padding:.25rem .6rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.4);
     }
-    .hero-tags span:nth-child(1) { border-color: var(--accent2); color: var(--accent2); }
-    .hero-tags span:nth-child(2) { border-color: var(--accent); color: var(--accent); }
-    .hero-tags span:nth-child(3) { border-color: var(--accent3); color: var(--accent3); }
+    .hero-tags span:nth-child(1) { border-color:var(--accent2); color:var(--accent2); }
+    .hero-tags span:nth-child(2) { border-color:var(--accent); color:var(--accent); }
+    .hero-tags span:nth-child(3) { border-color:var(--accent3); color:var(--accent3); }
 
     .hero-card {
       background: radial-gradient(circle at top left,#1f2937,#020617);
       border-radius: 16px;
-      padding: 1.3rem 1.4rem;
+      padding: 1.2rem 1.3rem 1.3rem;
       border: 1px solid rgba(148,163,184,.35);
       box-shadow: 0 18px 40px rgba(15,23,42,.9);
+      font-size: .84rem;
     }
     .hero-card h2 {
-      font-size: 1rem;
+      font-size: .98rem;
       margin-bottom: .4rem;
     }
-    .hero-card p {
-      font-size: .82rem;
-      color: var(--muted);
-      margin-bottom: .8rem;
+    .hero-card ul {
+      list-style: none;
+      margin-top: .4rem;
     }
-    .hero-grid {
-      display: grid;
-      grid-template-columns: repeat(2,minmax(0,1fr));
-      gap: .6rem;
-      font-size: .8rem;
-    }
-    .hero-grid-item {
-      padding: .5rem .6rem;
-      border-radius: 10px;
-      background: rgba(15,23,42,.9);
-      border: 1px solid rgba(55,65,81,.8);
-    }
-    .hero-grid-item strong {
-      display: block;
-      margin-bottom: .1rem;
-      font-size: .78rem;
+    .hero-card li {
+      margin-bottom: .28rem;
     }
 
     .section-title {
       font-size: 1.1rem;
-      margin-bottom: .5rem;
-      margin-top: 1.5rem;
+      margin-bottom: .45rem;
+      margin-top: 1.6rem;
     }
     .section-sub {
       font-size: .85rem;
       color: var(--muted);
-      margin-bottom: 1.1rem;
+      margin-bottom: 1rem;
     }
 
     .cards {
@@ -173,7 +249,7 @@
     .card {
       background: linear-gradient(135deg,#020617,#020617 50%,#020617);
       border-radius: 16px;
-      padding: 1.1rem 1.2rem 1.2rem;
+      padding: 1.05rem 1.15rem 1.2rem;
       border: 1px solid var(--border);
       box-shadow: 0 12px 28px rgba(0,0,0,.85);
       position: relative;
@@ -183,35 +259,22 @@
       content:"";
       position:absolute;
       inset:-40%;
-      background: radial-gradient(circle at top,var(--accent2),transparent 55%);
-      opacity:.08;
+      background: radial-gradient(circle at top,var(--accent2),transparent 60%);
+      opacity:.09;
       pointer-events:none;
     }
     .card h3 {
-      font-size: 1rem;
-      margin-bottom: .35rem;
+      font-size: .98rem;
+      margin-bottom: .3rem;
     }
     .card p {
       font-size: .8rem;
       color: var(--muted);
-      margin-bottom: .7rem;
-      max-width: 26rem;
+      margin-bottom: .65rem;
     }
     .card-footer {
-      display:flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: .78rem;
-    }
-    .card-footer a {
-      padding:.3rem .7rem;
-      border-radius: 999px;
-      border:1px solid rgba(148,163,184,.5);
-      color: var(--accent2);
-    }
-    .card-footer a:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+      font-size:.78rem;
+      color:var(--muted);
     }
 
     /* Kod parçacıkları */
@@ -225,19 +288,13 @@
       margin-bottom:.5rem;
     }
     code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
-    .snippet {
-      margin-bottom:1.2rem;
-    }
+    .snippet { margin-bottom:1.2rem; }
     .snippet-header {
       display:flex;
       justify-content:space-between;
       align-items:center;
       margin-bottom:.25rem;
       font-size:.8rem;
-    }
-    .snippet-lang {
-      font-size:.72rem;
-      color:var(--accent2);
     }
     .btn-copy {
       font-size:.72rem;
@@ -285,7 +342,7 @@
     /* Oyunlar & Araçlar */
     .tool-grid {
       display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
       gap:1rem;
     }
     .tool-card {
@@ -334,7 +391,7 @@
       word-break:break-all;
     }
     footer {
-      margin-top:2rem;
+      margin-top:2.2rem;
       font-size:.78rem;
       color:var(--muted);
       text-align:center;
@@ -342,92 +399,136 @@
   </style>
 </head>
 <body>
-  <div class="page">
-    <header>
+  <div class="bg-layer">
+    <div class="code-rain">
+      // ruhbudur mini site
+      for (let i = 0; i &lt; sonsuz; i++) &#123;
+          console.log(&quot;kod yaz&quot;);
+      &#125;
+      &lt;div class=&quot;kod&quot;&gt;HTML CSS JS&lt;/div&gt;
+      0101010101 const value = Math.random();
+      python &gt;&gt;&gt; print(&quot;selam&quot;)
+      std::cout &lt;&lt; &quot;C++&quot;;
+      function miniTool() &#123; return &quot;ok&quot;; &#125;
+      // ...
+    </div>
+  </div>
+
+  <div class="layout">
+    <!-- SOL MENÜ -->
+    <aside class="sidebar">
       <div class="logo">
         <div class="logo-badge">R</div>
         <div class="logo-text">
           <span>RUHBUDUR</span>
-          <span>Mini kod & araç sitesi</span>
+          <span>Mini kod &amp; araç sitesi</span>
         </div>
       </div>
-      <nav>
-        <a href="#snippets">Kod parçacıkları</a>
-        <a href="#games">Minik oyunlar</a>
-        <a href="#ideas">Proje fikirleri</a>
-        <a href="#tools">Araç kutusu</a>
+      <nav class="nav-links">
+        <a href="#home" class="nav-link active"><span class="icon">🏠</span> <span>Ana sayfa</span></a>
+        <a href="#snippets" class="nav-link"><span class="icon">🧩</span> <span>Kod parçacıkları</span></a>
+        <a href="#games" class="nav-link"><span class="icon">🎮</span> <span>Minik oyunlar</span></a>
+        <a href="#ideas" class="nav-link"><span class="icon">💡</span> <span>Proje fikirleri</span></a>
+        <a href="#tools" class="nav-link"><span class="icon">🧰</span> <span>Araç kutusu</span></a>
       </nav>
-    </header>
-
-    <section class="hero">
-      <div>
-        <h1>Basit ama işe yarar mini kod & araç sitesi.</h1>
-        <p>Kod yazarken veya derste / arkadaş ortamında lazım olabilecek küçük şeyler: hazır kod parçacıkları, minik oyunlar, proje fikirleri ve hızlı araçlar.</p>
-        <div class="hero-tags">
-          <span>HTML · CSS · JS</span>
-          <span>Python & C++ fikirleri</span>
-          <span>Öğrenci & hobi odaklı</span>
-        </div>
+      <div class="sidebar-footer">
+        Kurucu: <strong>ruhbudur</strong><br />
+        Amaç: Kod öğrenenlere minik, işe yarar araçlar ve fikirler sunmak.
       </div>
-      <div class="hero-card">
-        <h2>Bu sitede neler var?</h2>
-        <p>Tek sayfada 4 bölüm:</p>
-        <div class="hero-grid">
-          <div class="hero-grid-item">
-            <strong>Kod parçacıkları</strong>
-            Kısa ve kopyalanabilir kod örnekleri.
-          </div>
-          <div class="hero-grid-item">
-            <strong>Canlı minik oyunlar</strong>
-            Tahmin, taş-kağıt-makas vb. JS ile.
-          </div>
-          <div class="hero-grid-item">
-            <strong>Proje fikirleri</strong>
-            Python, JS, C++ için seviyeli fikirler.
-          </div>
-          <div class="hero-grid-item">
-            <strong>Araç kutusu</strong>
-            Rastgele sayı, şifre, öğrenci seçici.
+    </aside>
+
+    <!-- ANA İÇERİK -->
+    <main class="main">
+      <section id="home" class="hero">
+        <div>
+          <h1>Basit ama işe yarar mini kod &amp; araç sitesi.</h1>
+          <p>
+            Bu site, kod yazmaya yeni başlayanlar ve eğlence için uğraşanlar için
+            hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve akıllı
+            tahta / sınıf için kullanılabilecek mini araçlardan oluşuyor.
+          </p>
+          <div class="hero-tags">
+            <span>HTML · CSS · JavaScript</span>
+            <span>Python &amp; C++ örnekleri</span>
+            <span>Öğrenci &amp; hobi projesi</span>
           </div>
         </div>
-      </div>
-    </section>
-
-    <!-- 1) Kod parçacıkları -->
-    <section id="snippets">
-      <h2 class="section-title">Kod parçacıkları</h2>
-      <p class="section-sub">Sık lazım olan minik kodlar. Üstteki butonla hızlıca kopyalayabilirsin.</p>
-
-      <div class="snippet">
-        <div class="snippet-header">
-          <div>Python – 1 ile 100 arası rastgele sayı</div>
-          <button class="btn-copy" data-target="py-random">Kopyala</button>
+        <div class="hero-card">
+          <h2>Bu site neden var?</h2>
+          <ul>
+            <li>• Arkadaşlara “bak ben bunu yaptım” diyebileceğin bir kod alanı olsun diye.</li>
+            <li>• Derste veya akıllı tahtada hızlıca açıp kullanabileceğin araçlar için.</li>
+            <li>• “Ne projesi yapsam?” dediğinde aklına fikir gelsin diye.</li>
+            <li>• Tamamen ücretsiz, reklamsız ve sadece tarayıcıyla çalışan bir yer olsun diye.</li>
+          </ul>
         </div>
-        <pre><code id="py-random">import random
+      </section>
+
+      <section>
+        <h2 class="section-title">Sitede hangi bölümler var?</h2>
+        <p class="section-sub">
+          Aşağıda her bölümün kısa özeti yazıyor. Soldaki menüden de istediğin yere
+          tek tıkla gidebilirsin.
+        </p>
+        <div class="cards">
+          <article class="card">
+            <h3>🧩 Kod parçacıkları</h3>
+            <p>Python, JS ve C++ için sık kullanılan kısa kod örnekleri. Her birinin üstünde “Kopyala” butonu var.</p>
+            <div class="card-footer">Örnek: rastgele sayı, arka plan rengi değiştirme, dizide maksimum bulma…</div>
+          </article>
+          <article class="card">
+            <h3>🎮 Minik oyunlar</h3>
+            <p>Tarayıcıda çalışan basit JS oyunları: sayı tahmin, taş-kağıt-makas. Tamamen front-end.</p>
+            <div class="card-footer">Konsept: “Kodla yazılmış mini eğlence köşesi”.</div>
+          </article>
+          <article class="card">
+            <h3>💡 Proje fikirleri</h3>
+            <p>Python, JS ve C++ için seviyeli proje fikirleri. Sıkıştığında aç, rastgele birini seç.</p>
+            <div class="card-footer">Her fikir yanında kısa açıklama ve hangi dil için olduğu yazıyor.</div>
+          </article>
+          <article class="card">
+            <h3>🧰 Araç kutusu</h3>
+            <p>Rastgele sayı üretici, isim/öğrenci seçici, güçlü şifre üretici gibi küçük ama işe yarar araçlar.</p>
+            <div class="card-footer">Akıllı tahta veya sınıf içi aktiviteler için de rahat kullanılabilir.</div>
+          </article>
+        </div>
+      </section>
+
+      <!-- 1) KOD PARÇACIKLARI -->
+      <section id="snippets">
+        <h2 class="section-title">Kod parçacıkları</h2>
+        <p class="section-sub">Sık lazım olan minik kodlar. Üstteki butonla hızlıca kopyalayabilirsin.</p>
+
+        <div class="snippet">
+          <div class="snippet-header">
+            <div>Python – 1 ile 100 arası rastgele sayı</div>
+            <button class="btn-copy" data-target="py-random">Kopyala</button>
+          </div>
+          <pre><code id="py-random">import random
 
 sayi = random.randint(1, 100)
 print(&quot;Tuttuğum sayı:&quot;, sayi)</code></pre>
-      </div>
-
-      <div class="snippet">
-        <div class="snippet-header">
-          <div>JavaScript – Butona tıklayınca arka plan rengi değiştir</div>
-          <button class="btn-copy" data-target="js-bg">Kopyala</button>
         </div>
-        <pre><code id="js-bg">const colors = [&quot;#0f172a&quot;, &quot;#1d4ed8&quot;, &quot;#16a34a&quot;, &quot;#be123c&quot;];
+
+        <div class="snippet">
+          <div class="snippet-header">
+            <div>JavaScript – Butona tıklayınca arka plan rengi değiştir</div>
+            <button class="btn-copy" data-target="js-bg">Kopyala</button>
+          </div>
+          <pre><code id="js-bg">const colors = [&quot;#0f172a&quot;, &quot;#1d4ed8&quot;, &quot;#16a34a&quot;, &quot;#be123c&quot;];
 
 document.querySelector(&quot;button&quot;).addEventListener(&quot;click&quot;, () =&gt; {
   const secilen = colors[Math.floor(Math.random() * colors.length)];
   document.body.style.backgroundColor = secilen;
 });</code></pre>
-      </div>
-
-      <div class="snippet">
-        <div class="snippet-header">
-          <div>C++ – Dizideki en büyük eleman</div>
-          <button class="btn-copy" data-target="cpp-max">Kopyala</button>
         </div>
-        <pre><code id="cpp-max">#include &lt;iostream&gt;
+
+        <div class="snippet">
+          <div class="snippet-header">
+            <div>C++ – Dizideki en büyük eleman</div>
+            <button class="btn-copy" data-target="cpp-max">Kopyala</button>
+          </div>
+          <pre><code id="cpp-max">#include &lt;iostream&gt;
 #include &lt;vector&gt;
 using namespace std;
 
@@ -440,121 +541,131 @@ int main() {
     cout &lt;&lt; &quot;En büyük:&quot; &lt;&lt; maks &lt;&lt; endl;
     return 0;
 }</code></pre>
-      </div>
-    </section>
+        </div>
+      </section>
 
-    <!-- 2) Minik oyunlar -->
-    <section id="games">
-      <h2 class="section-title">Canlı minik oyunlar</h2>
-      <p class="section-sub">Hepsi sadece JavaScript ile; tarayıcıda çalışır.</p>
+      <!-- 2) MİNİK OYUNLAR -->
+      <section id="games">
+        <h2 class="section-title">Canlı minik oyunlar</h2>
+        <p class="section-sub">Hepsi sadece JavaScript ile; tarayıcıda çalışır.</p>
 
-      <div class="tool-grid">
-        <div class="tool-card">
-          <h4>Sayı tahmin oyunu</h4>
-          <p>1–100 arasında tuttuğum sayıyı tahmin et.</p>
-          <label for="guess-input">Tahminin:</label>
-          <input id="guess-input" type="number" min="1" max="100" />
-          <button class="btn-small" id="guess-btn">Tahmin et</button>
-          <div class="tool-output" id="guess-output"></div>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h4>Sayı tahmin oyunu</h4>
+            <p>1–100 arasında tuttuğum sayıyı tahmin et.</p>
+            <label for="guess-input">Tahminin:</label>
+            <input id="guess-input" type="number" min="1" max="100" />
+            <button class="btn-small" id="guess-btn">Tahmin et</button>
+            <div class="tool-output" id="guess-output"></div>
+          </div>
+
+          <div class="tool-card">
+            <h4>Taş – Kağıt – Makas</h4>
+            <p>Bilgisayara karşı oyna.</p>
+            <label>Seçimin:</label>
+            <select id="rps-select">
+              <option value="tas">Taş</option>
+              <option value="kagit">Kağıt</option>
+              <option value="makas">Makas</option>
+            </select>
+            <button class="btn-small" id="rps-btn">Oyna</button>
+            <div class="tool-output" id="rps-output"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) PROJE FİKİRLERİ -->
+      <section id="ideas">
+        <h2 class="section-title">Proje fikirleri</h2>
+        <p class="section-sub">Canın proje yazmak istediğinde, “ne yapsam?” sorusuna cevap olsun.</p>
+
+        <div class="pill-row">
+          <div class="pill active" data-lang="all">Hepsi</div>
+          <div class="pill" data-lang="py">Python</div>
+          <div class="pill" data-lang="js">JavaScript</div>
+          <div class="pill" data-lang="cpp">C++</div>
         </div>
 
-        <div class="tool-card">
-          <h4>Taş – Kağıt – Makas</h4>
-          <p>Bilgisayara karşı oyna.</p>
-          <label>Seçimin:</label>
-          <select id="rps-select">
-            <option value="tas">Taş</option>
-            <option value="kagit">Kağıt</option>
-            <option value="makas">Makas</option>
-          </select>
-          <button class="btn-small" id="rps-btn">Oyna</button>
-          <div class="tool-output" id="rps-output"></div>
+        <div id="ideas-list">
+          <div class="idea" data-lang="py">
+            <strong>1. Not defteri + arama (PY)</strong> –
+            <span>Dosyaya kaydeden, içinde arama yapabilen basit CLI veya Tkinter uygulaması.</span>
+          </div>
+          <div class="idea" data-lang="py">
+            <strong>2. Quiz uygulaması (PY)</strong> –
+            <span>Soruları JSON’dan okuyup puan hesaplayan, yanlışları gösteren test sistemi.</span>
+          </div>
+          <div class="idea" data-lang="js">
+            <strong>3. Pomodoro zamanlayıcı (JS)</strong> –
+            <span>25 dk çalışma, 5 dk mola; ilerlemeyi localStorage’da tutan web uygulaması.</span>
+          </div>
+          <div class="idea" data-lang="js">
+            <strong>4. Sürükle-bırak yapılacaklar listesi (JS)</strong> –
+            <span>Görevleri fareyle sıralayabildiğin, tamamlandı işaretleyebildiğin todo app.</span>
+          </div>
+          <div class="idea" data-lang="cpp">
+            <strong>5. Konsol satranç skoru takipçisi (C++)</strong> –
+            <span>Oyun sonuçlarını kaydeden, basit puanlama yapan CLI program.</span>
+          </div>
+          <div class="idea" data-lang="cpp">
+            <strong>6. Dosya şifreleme aracı (C++)</strong> –
+            <span>XOR / Caesar cipher mantığıyla metin dosyalarını şifreleyip çözen araç.</span>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- 3) Proje fikirleri -->
-    <section id="ideas">
-      <h2 class="section-title">Proje fikirleri</h2>
-      <p class="section-sub">Canın proje yazmak istediğinde, “ne yapsam?” sorusuna cevap olsun.</p>
+      <!-- 4) ARAÇ KUTUSU -->
+      <section id="tools">
+        <h2 class="section-title">Araç kutusu</h2>
+        <p class="section-sub">Ders, oyun veya günlük kullanım için minik araçlar.</p>
 
-      <div class="pill-row">
-        <div class="pill active" data-lang="all">Hepsi</div>
-        <div class="pill" data-lang="py">Python</div>
-        <div class="pill" data-lang="js">JavaScript</div>
-        <div class="pill" data-lang="cpp">C++</div>
-      </div>
+        <div class="tool-grid">
+          <div class="tool-card">
+            <h4>Rastgele sayı üretici</h4>
+            <label>Alt sınır:</label>
+            <input id="rand-min" type="number" value="1" />
+            <label>Üst sınır:</label>
+            <input id="rand-max" type="number" value="100" />
+            <button class="btn-small" id="rand-btn">Üret</button>
+            <div class="tool-output" id="rand-out"></div>
+          </div>
 
-      <div id="ideas-list">
-        <div class="idea" data-lang="py">
-          <strong>1. Not defteri + arama (PY)</strong> –
-          <span>Dosyaya kaydeden, içinde arama yapabilen basit CLI veya Tkinter uygulaması.</span>
-        </div>
-        <div class="idea" data-lang="py">
-          <strong>2. Quiz uygulaması (PY)</strong> –
-          <span>Soruları JSON’dan okuyup puan hesaplayan, yanlışları gösteren test sistemi.</span>
-        </div>
-        <div class="idea" data-lang="js">
-          <strong>3. Pomodoro zamanlayıcı (JS)</strong> –
-          <span>25 dk çalışma, 5 dk mola; ilerlemeyi localStorage’da tutan web uygulaması.</span>
-        </div>
-        <div class="idea" data-lang="js">
-          <strong>4. Sürükle-bırak yapılacaklar listesi (JS)</strong> –
-          <span>Görevleri fareyle sıralayabildiğin, tamamlandı işaretleyebildiğin todo app.</span>
-        </div>
-        <div class="idea" data-lang="cpp">
-          <strong>5. Konsol satranç skoru takipçisi (C++)</strong> –
-          <span>Oyun sonuçlarını kaydeden, ELO benzeri basit puanlama yapan CLI program.</span>
-        </div>
-        <div class="idea" data-lang="cpp">
-          <strong>6. Dosya şifreleme aracı (C++)</strong> –
-          <span>Basit XOR / Caesar cipher mantığıyla metin dosyalarını şifreleyip çözen araç.</span>
-        </div>
-      </div>
-    </section>
+          <div class="tool-card">
+            <h4>Öğrenci / kişi seçici</h4>
+            <p style="margin-bottom:.35rem;">İsimleri virgülle yaz, rastgele birini seçecek.</p>
+            <label>İsimler:</label>
+            <input id="picker-input" type="text" placeholder="Ali, Ayşe, Veli, ..." />
+            <button class="btn-small" id="picker-btn">Seç</button>
+            <div class="tool-output" id="picker-out"></div>
+          </div>
 
-    <!-- 4) Araç kutusu -->
-    <section id="tools">
-      <h2 class="section-title">Araç kutusu</h2>
-      <p class="section-sub">Ders, oyun veya günlük kullanım için minik araçlar.</p>
-
-      <div class="tool-grid">
-        <div class="tool-card">
-          <h4>Rastgele sayı üretici</h4>
-          <label>Alt sınır:</label>
-          <input id="rand-min" type="number" value="1" />
-          <label>Üst sınır:</label>
-          <input id="rand-max" type="number" value="100" />
-          <button class="btn-small" id="rand-btn">Üret</button>
-          <div class="tool-output" id="rand-out"></div>
+          <div class="tool-card">
+            <h4>Güçlü şifre üretici</h4>
+            <label>Uzunluk:</label>
+            <input id="pw-length" type="number" value="12" min="6" max="40" />
+            <button class="btn-small" id="pw-btn">Şifre üret</button>
+            <div class="tool-output" id="pw-out"></div>
+          </div>
         </div>
+      </section>
 
-        <div class="tool-card">
-          <h4>Öğrenci / kişi seçici</h4>
-          <p style="margin-bottom:.35rem;">İsimleri virgülle yaz, rastgele birini seçecek.</p>
-          <label>İsimler:</label>
-          <input id="picker-input" type="text" placeholder="Ali, Ayşe, Veli, ..." />
-          <button class="btn-small" id="picker-btn">Seç</button>
-          <div class="tool-output" id="picker-out"></div>
-        </div>
-
-        <div class="tool-card">
-          <h4>Güçlü şifre üretici</h4>
-          <label>Uzunluk:</label>
-          <input id="pw-length" type="number" value="12" min="6" max="40" />
-          <button class="btn-small" id="pw-btn">Şifre üret</button>
-          <div class="tool-output" id="pw-out"></div>
-        </div>
-      </div>
-    </section>
-
-    <footer>
-      ruhbudur · Bu site HTML/CSS/JS + GitHub + Netlify ile yayınlandı.
-    </footer>
+      <footer>
+        ruhbudur · Bu site HTML/CSS/JS + GitHub + Netlify ile yayınlandı.
+      </footer>
+    </main>
   </div>
 
   <script>
-    // Kopyala butonları
+    // Menüde aktif link
+    const navLinks = document.querySelectorAll(".nav-link");
+    navLinks.forEach(link => {
+      link.addEventListener("click", () => {
+        navLinks.forEach(l => l.classList.remove("active"));
+        link.classList.add("active");
+      });
+    });
+
+    // Kod kopyalama
     document.querySelectorAll(".btn-copy").forEach(btn => {
       btn.addEventListener("click", () => {
         const id = btn.getAttribute("data-target");
