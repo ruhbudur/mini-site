@@ -2,13 +2,14 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>ruhbudur – Mini Kod & Araç Sitesi</title>
+  <title>RUHBUDUR – Mini Kod & Araç Sitesi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <style>
     :root {
       --bg: #020617;
       --bg2: #020617;
-      --card: #020617;
+      --panel: #020617;
+      --panel2: #020617;
       --accent: #22c55e;
       --accent2: #38bdf8;
       --accent3: #eab308;
@@ -17,265 +18,242 @@
       --border: #1f2937;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
+    html, body { height: 100%; }
     body {
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      background: radial-gradient(circle at top, #020617, #000 65%);
       color: var(--text);
-      min-height: 100vh;
-      overflow-x: hidden;
+      background: #000;
+      overflow: hidden;
     }
-    a { color: inherit; text-decoration: none; }
 
-    /* CODE RAIN BACKGROUND */
-    .bg-layer {
+    /* Kod yağmuru arkası */
+    #code-rain {
       position: fixed;
       inset: 0;
-      overflow: hidden;
-      pointer-events: none;
-      z-index: -2;
-      background: radial-gradient(circle at top, #0f172a, #020617 55%, #000 100%);
-    }
-    .code-rain {
-      position: absolute;
-      width: 200%;
-      height: 200%;
-      top: -50%;
-      left: -50%;
-      font-family: "Fira Code", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
-      font-size: 11px;
-      color: rgba(34,197,94,0.24);
-      line-height: 1.4;
-      white-space: pre;
-      animation: rain 22s linear infinite;
-    }
-    @keyframes rain {
-      from { transform: translateY(-10%) translateX(0); }
-      to   { transform: translateY(35%) translateX(12%); }
+      z-index: 0;
+      background: radial-gradient(circle at top, #020617, #000 70%);
     }
 
-    /* LAYOUT */
-    .layout {
-      display: grid;
-      grid-template-columns: 220px minmax(0, 1fr);
-      min-height: 100vh;
+    .app {
       position: relative;
       z-index: 1;
-    }
-    @media (max-width: 850px) {
-      .layout {
-        grid-template-columns: 1fr;
-      }
-      .sidebar {
-        position: static;
-        width: 100%;
-        height: auto;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
-        padding: .8rem 1.2rem;
-      }
-      .nav-links {
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: .4rem;
-        margin-top: 0;
-      }
+      display: grid;
+      grid-template-columns: 260px minmax(0, 1fr);
+      height: 100vh;
+      color: var(--text);
     }
 
+    @media (max-width: 880px) {
+      .app {
+        grid-template-columns: 70px minmax(0, 1fr);
+      }
+      .sidebar-labels { display: none; }
+    }
+
+    /* Sidebar */
     .sidebar {
-      background: rgba(15,23,42,0.96);
+      background: linear-gradient(180deg, rgba(15,23,42,0.96), rgba(15,23,42,0.98));
       border-right: 1px solid rgba(31,41,55,0.9);
-      padding: 1.2rem 1.1rem 1.5rem;
+      padding: 1.2rem .9rem;
       display: flex;
       flex-direction: column;
       gap: 1.2rem;
-      position: sticky;
-      top: 0;
-      height: 100vh;
+      backdrop-filter: blur(14px);
     }
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: .65rem;
+    .logo-block {
+      display:flex;
+      align-items:center;
+      gap:.7rem;
     }
-    .logo-badge {
-      width: 36px;
-      height: 36px;
+    .logo-circle {
+      width: 40px;
+      height: 40px;
       border-radius: 999px;
-      background: radial-gradient(circle at 30% 20%, #22c55e, #22c55e 40%, #22c55e 60%, #0ea5e9);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-weight: 800;
-      color: #020617;
-      box-shadow: 0 0 24px rgba(34,197,94,0.9);
-      font-size: 1.1rem;
+      background: radial-gradient(circle at 30% 20%, #22c55e, #16a34a 40%, #0ea5e9);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-weight:800;
+      color:#020617;
+      box-shadow:0 0 22px rgba(34,197,94,.7);
     }
     .logo-text {
-      display: flex;
-      flex-direction: column;
+      display:flex;
+      flex-direction:column;
     }
     .logo-text span:first-child {
-      font-weight: 700;
-      letter-spacing: .06em;
-      font-size: .9rem;
+      font-size:.9rem;
+      font-weight:700;
+      letter-spacing:.08em;
     }
     .logo-text span:last-child {
-      font-size: .78rem;
-      color: var(--muted);
+      font-size:.75rem;
+      color:var(--muted);
     }
 
-    .nav-links {
-      display: flex;
-      flex-direction: column;
-      gap: .35rem;
-      margin-top: .5rem;
+    .nav {
+      margin-top:.6rem;
+      display:flex;
+      flex-direction:column;
+      gap:.35rem;
     }
-    .nav-links a {
-      font-size: .82rem;
-      padding: .34rem .6rem;
-      border-radius: 999px;
-      border: 1px solid transparent;
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: .4rem;
+    .nav button {
+      width:100%;
+      display:flex;
+      align-items:center;
+      gap:.6rem;
+      padding:.45rem .5rem;
+      border-radius:999px;
+      border:1px solid transparent;
+      background:transparent;
+      color:var(--muted);
+      font-size:.8rem;
+      text-align:left;
+      cursor:pointer;
     }
-    .nav-links a span.icon {
-      width: 16px;
-      text-align: center;
-      font-size: .88rem;
+    .nav button span.icon {
+      width:26px;
+      height:26px;
+      border-radius:999px;
+      background:#020617;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      font-size:.9rem;
     }
-    .nav-links a:hover {
-      border-color: rgba(56,189,248,0.7);
-      color: var(--accent2);
-      background: rgba(15,23,42,0.9);
+    .nav button span.label {
+      white-space:nowrap;
     }
-    .nav-links a.active {
-      border-color: var(--accent);
-      color: var(--accent);
-      background: rgba(22,163,74,0.12);
+    .nav button.active {
+      background: radial-gradient(circle at left, rgba(34,197,94,.2), transparent 70%);
+      border-color:rgba(34,197,94,.6);
+      color:var(--text);
+    }
+    .nav button.active span.icon {
+      background:linear-gradient(135deg,var(--accent),var(--accent2));
+      color:#020617;
+    }
+    .nav button:hover {
+      border-color:rgba(148,163,184,.55);
+      color:var(--text);
     }
 
     .sidebar-footer {
-      margin-top: auto;
-      font-size: .75rem;
-      color: var(--muted);
-    }
-
-    .main {
-      padding: 1.7rem 1.7rem 2.8rem;
-      max-width: 1040px;
-      width: 100%;
-      margin: 0 auto;
-    }
-    @media (max-width: 850px) {
-      .main { padding: 1.1rem 1.3rem 2.3rem; }
-    }
-
-    /* HERO / ANA SAYFA */
-    .hero {
-      display: grid;
-      grid-template-columns: minmax(0, 2.1fr) minmax(0, 2fr);
-      gap: 1.8rem;
-      align-items: center;
-      margin-bottom: 2.3rem;
-    }
-    @media (max-width: 850px) {
-      .hero { grid-template-columns: 1fr; gap: 1.4rem; }
-    }
-    .hero h1 {
-      font-size: clamp(1.8rem, 3vw, 2.3rem);
-      margin-bottom: .6rem;
-    }
-    .hero p {
-      font-size: .95rem;
-      color: var(--muted);
-      max-width: 38rem;
-    }
-    .hero-tags {
-      margin-top: .85rem;
-      display:flex;
-      flex-wrap:wrap;
-      gap:.45rem;
-    }
-    .hero-tags span {
-      font-size:.78rem;
-      padding:.25rem .6rem;
-      border-radius:999px;
-      border:1px solid rgba(148,163,184,.4);
-    }
-    .hero-tags span:nth-child(1) { border-color:var(--accent2); color:var(--accent2); }
-    .hero-tags span:nth-child(2) { border-color:var(--accent); color:var(--accent); }
-    .hero-tags span:nth-child(3) { border-color:var(--accent3); color:var(--accent3); }
-
-    .hero-card {
-      background: radial-gradient(circle at top left,#1f2937,#020617);
-      border-radius: 16px;
-      padding: 1.2rem 1.3rem 1.3rem;
-      border: 1px solid rgba(148,163,184,.35);
-      box-shadow: 0 18px 40px rgba(15,23,42,.9);
-      font-size: .84rem;
-    }
-    .hero-card h2 {
-      font-size: .98rem;
-      margin-bottom: .4rem;
-    }
-    .hero-card ul {
-      list-style: none;
-      margin-top: .4rem;
-    }
-    .hero-card li {
-      margin-bottom: .28rem;
-    }
-
-    .section-title {
-      font-size: 1.1rem;
-      margin-bottom: .45rem;
-      margin-top: 1.6rem;
-    }
-    .section-sub {
-      font-size: .85rem;
-      color: var(--muted);
-      margin-bottom: 1rem;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
-      gap: 1rem;
-      margin-bottom: 2rem;
-    }
-    .card {
-      background: linear-gradient(135deg,#020617,#020617 50%,#020617);
-      border-radius: 16px;
-      padding: 1.05rem 1.15rem 1.2rem;
-      border: 1px solid var(--border);
-      box-shadow: 0 12px 28px rgba(0,0,0,.85);
-      position: relative;
-      overflow: hidden;
-    }
-    .card::before {
-      content:"";
-      position:absolute;
-      inset:-40%;
-      background: radial-gradient(circle at top,var(--accent2),transparent 60%);
-      opacity:.09;
-      pointer-events:none;
-    }
-    .card h3 {
-      font-size: .98rem;
-      margin-bottom: .3rem;
-    }
-    .card p {
-      font-size: .8rem;
-      color: var(--muted);
-      margin-bottom: .65rem;
-    }
-    .card-footer {
+      margin-top:auto;
       font-size:.78rem;
       color:var(--muted);
     }
+    .sidebar-footer strong { color:var(--accent2); }
+
+    /* Content */
+    .content {
+      position:relative;
+      height:100vh;
+      overflow:auto;
+      padding:1.3rem 1.6rem 2rem;
+      background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(2,6,23,0.98));
+    }
+    .content-inner {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .view {
+      display:none;
+    }
+    .view.active {
+      display:block;
+      animation: fadeIn .25s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity:0; transform:translateY(4px); }
+      to { opacity:1; transform:translateY(0); }
+    }
+
+    h1 {
+      font-size:clamp(1.9rem,3vw,2.4rem);
+      margin-bottom:.4rem;
+    }
+    .lead {
+      font-size:.92rem;
+      color:var(--muted);
+      max-width:40rem;
+      margin-bottom:.9rem;
+    }
+    .chips {
+      display:flex;
+      flex-wrap:wrap;
+      gap:.45rem;
+      margin-bottom:1.3rem;
+    }
+    .chip {
+      font-size:.78rem;
+      padding:.2rem .55rem;
+      border-radius:999px;
+      border:1px solid rgba(148,163,184,.45);
+    }
+    .chip.blue { border-color:var(--accent2); color:var(--accent2); }
+    .chip.green { border-color:var(--accent); color:var(--accent); }
+    .chip.yellow{ border-color:var(--accent3); color:var(--accent3); }
+
+    .info-grid {
+      display:grid;
+      grid-template-columns: minmax(0,2.2fr) minmax(0,2fr);
+      gap:1.3rem;
+      margin-bottom:1.8rem;
+    }
+    @media (max-width:860px){ .info-grid{ grid-template-columns: 1fr; } }
+
+    .panel {
+      background: rgba(15,23,42,0.95);
+      border-radius: 16px;
+      padding: 1rem 1.1rem;
+      border: 1px solid rgba(31,41,55,0.95);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.85);
+    }
+    .panel h2 {
+      font-size:1rem;
+      margin-bottom:.4rem;
+    }
+    .panel p {
+      font-size:.84rem;
+      color:var(--muted);
+      margin-bottom:.4rem;
+    }
+    .panel ul {
+      font-size:.82rem;
+      color:var(--muted);
+      padding-left:1rem;
+    }
+    .panel ul li { margin-bottom:.15rem; }
+
+    .section-heading {
+      font-size:1rem;
+      margin-bottom:.35rem;
+      margin-top:1.3rem;
+    }
+    .section-sub {
+      font-size:.82rem;
+      color:var(--muted);
+      margin-bottom:.9rem;
+    }
+    .home-cards {
+      display:grid;
+      grid-template-columns: repeat(auto-fit,minmax(210px,1fr));
+      gap:.9rem;
+      margin-bottom:1.5rem;
+    }
+    .home-card {
+      background: radial-gradient(circle at top left, rgba(56,189,248,0.08), rgba(15,23,42,0.98));
+      border-radius: 14px;
+      padding:.8rem .9rem;
+      border: 1px solid rgba(31,41,55,0.95);
+      font-size:.82rem;
+    }
+    .home-card h3 {
+      font-size:.9rem;
+      margin-bottom:.25rem;
+    }
+    .home-card p { color:var(--muted); }
 
     /* Kod parçacıkları */
     pre {
@@ -287,7 +265,9 @@
       border:1px solid rgba(55,65,81,.9);
       margin-bottom:.5rem;
     }
-    code { font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace; }
+    code {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
     .snippet { margin-bottom:1.2rem; }
     .snippet-header {
       display:flex;
@@ -330,19 +310,13 @@
       color:var(--accent);
       background:rgba(34,197,94,.08);
     }
-    .idea {
-      font-size:.8rem;
-      margin-bottom:.45rem;
-    }
-    .idea span {
-      font-size:.72rem;
-      color:var(--muted);
-    }
+    .idea { font-size:.8rem; margin-bottom:.45rem; }
+    .idea span { font-size:.72rem; color:var(--muted); }
 
     /* Oyunlar & Araçlar */
     .tool-grid {
       display:grid;
-      grid-template-columns: repeat(auto-fit,minmax(220px,1fr));
+      grid-template-columns: repeat(auto-fit,minmax(230px,1fr));
       gap:1rem;
     }
     .tool-card {
@@ -351,12 +325,14 @@
       padding:.9rem 1rem 1rem;
       border:1px solid rgba(55,65,81,.9);
       font-size:.8rem;
+      box-shadow:0 14px 32px rgba(0,0,0,.9);
     }
-    .tool-card h4 {
+    .tool-card h3 {
       font-size:.9rem;
-      margin-bottom:.35rem;
+      margin-bottom:.3rem;
       color:var(--accent2);
     }
+    .tool-card p { margin-bottom:.4rem; color:var(--muted); }
     .tool-card label {
       display:block;
       margin-top:.35rem;
@@ -390,114 +366,123 @@
       min-height:1.1rem;
       word-break:break-all;
     }
+
     footer {
-      margin-top:2.2rem;
+      margin-top:1.8rem;
       font-size:.78rem;
       color:var(--muted);
       text-align:center;
+      padding-top:.8rem;
+      border-top:1px solid rgba(31,41,55,.85);
     }
   </style>
 </head>
 <body>
-  <div class="bg-layer">
-    <div class="code-rain">
-      // ruhbudur mini site
-      for (let i = 0; i &lt; sonsuz; i++) &#123;
-          console.log(&quot;kod yaz&quot;);
-      &#125;
-      &lt;div class=&quot;kod&quot;&gt;HTML CSS JS&lt;/div&gt;
-      0101010101 const value = Math.random();
-      python &gt;&gt;&gt; print(&quot;selam&quot;)
-      std::cout &lt;&lt; &quot;C++&quot;;
-      function miniTool() &#123; return &quot;ok&quot;; &#125;
-      // ...
+<canvas id="code-rain"></canvas>
+
+<div class="app">
+  <!-- Sidebar -->
+  <aside class="sidebar">
+    <div class="logo-block">
+      <div class="logo-circle">R</div>
+      <div class="logo-text sidebar-labels">
+        <span>RUHBUDUR</span>
+        <span>Mini kod & araç sitesi</span>
+      </div>
     </div>
-  </div>
 
-  <div class="layout">
-    <!-- SOL MENÜ -->
-    <aside class="sidebar">
-      <div class="logo">
-        <div class="logo-badge">R</div>
-        <div class="logo-text">
-          <span>RUHBUDUR</span>
-          <span>Mini kod &amp; araç sitesi</span>
+    <nav class="nav">
+      <button data-view="home" class="active">
+        <span class="icon">🏠</span>
+        <span class="label sidebar-labels">Ana sayfa</span>
+      </button>
+      <button data-view="snippets">
+        <span class="icon">{"</span>
+        <span class="label sidebar-labels">Kod parçacıkları</span>
+      </button>
+      <button data-view="games">
+        <span class="icon">🎮</span>
+        <span class="label sidebar-labels">Minik oyunlar</span>
+      </button>
+      <button data-view="ideas">
+        <span class="icon">💡</span>
+        <span class="label sidebar-labels">Proje fikirleri</span>
+      </button>
+      <button data-view="tools">
+        <span class="icon">🧰</span>
+        <span class="label sidebar-labels">Araç kutusu</span>
+      </button>
+    </nav>
+
+    <div class="sidebar-footer sidebar-labels">
+      Kurucu: <strong>ruhbudur</strong><br/>
+      Amaç: Kod meraklıları ve öğrenciler için<br/>küçük ama işe yarar bir site.
+    </div>
+  </aside>
+
+  <!-- Content -->
+  <main class="content">
+    <div class="content-inner">
+      <!-- ANA SAYFA -->
+      <section id="view-home" class="view active">
+        <h1>Basit ama işe yarar mini kod & araç sitesi.</h1>
+        <p class="lead">
+          Bu site, kod yazmaya yeni başlayanlar ve eğlence için ufak şeyler yapmak isteyenler için
+          hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve ders / tahta / sınıf ortamında
+          kullanılabilecek mini araçlardan oluşuyor.
+        </p>
+        <div class="chips">
+          <span class="chip blue">HTML · CSS · JavaScript</span>
+          <span class="chip green">Python & C++ örnekleri</span>
+          <span class="chip yellow">Eğlence + eğitim projeleri</span>
         </div>
-      </div>
-      <nav class="nav-links">
-        <a href="#home" class="nav-link active"><span class="icon">🏠</span> <span>Ana sayfa</span></a>
-        <a href="#snippets" class="nav-link"><span class="icon">🧩</span> <span>Kod parçacıkları</span></a>
-        <a href="#games" class="nav-link"><span class="icon">🎮</span> <span>Minik oyunlar</span></a>
-        <a href="#ideas" class="nav-link"><span class="icon">💡</span> <span>Proje fikirleri</span></a>
-        <a href="#tools" class="nav-link"><span class="icon">🧰</span> <span>Araç kutusu</span></a>
-      </nav>
-      <div class="sidebar-footer">
-        Kurucu: <strong>ruhbudur</strong><br />
-        Amaç: Kod öğrenenlere minik, işe yarar araçlar ve fikirler sunmak.
-      </div>
-    </aside>
 
-    <!-- ANA İÇERİK -->
-    <main class="main">
-      <section id="home" class="hero">
-        <div>
-          <h1>Basit ama işe yarar mini kod &amp; araç sitesi.</h1>
-          <p>
-            Bu site, kod yazmaya yeni başlayanlar ve eğlence için uğraşanlar için
-            hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve akıllı
-            tahta / sınıf için kullanılabilecek mini araçlardan oluşuyor.
-          </p>
-          <div class="hero-tags">
-            <span>HTML · CSS · JavaScript</span>
-            <span>Python &amp; C++ örnekleri</span>
-            <span>Öğrenci &amp; hobi projesi</span>
+        <div class="info-grid">
+          <div class="panel">
+            <h2>Sitede hangi bölümler var?</h2>
+            <p>Aşağıda her bölümün kısa özeti var; soldan menüden de tek tıkla gidebilirsin.</p>
+            <div class="home-cards">
+              <div class="home-card">
+                <h3>💻 Kod parçacıkları</h3>
+                <p>Python, JS ve C++ için sık kullanılan kod şablonları. Kopyala‑yapıştır ve dene.</p>
+              </div>
+              <div class="home-card">
+                <h3>🎮 Minik oyunlar</h3>
+                <p>Sayı tahmini, taş‑kağıt‑makas gibi küçük ama canlı çalışan JS oyunları.</p>
+              </div>
+              <div class="home-card">
+                <h3>💡 Proje fikirleri</h3>
+                <p>“Ne yazsam?” dediğinde seviyesine göre seçebileceğin mini proje fikirleri.</p>
+              </div>
+              <div class="home-card">
+                <h3>🧰 Araç kutusu</h3>
+                <p>Rastgele sayı üretici, şifre üretici, isim/öğrenci seçici gibi işine yarar araçlar.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="panel">
+            <h2>Bu site neden var?</h2>
+            <ul>
+              <li>Arkadaşlara “bak bunu yazdım” diyebileceğin bir kod alanı olsun diye.</li>
+              <li>Derse veya akıllı tahtaya hızlıca açıp kullanabileceğin küçük araçlar için.</li>
+              <li>“Ne projesi yapsam?” dediğinde sıkılıp gitme, al bir fikir diye.</li>
+              <li>Tamamen ücretsiz, reklamsız ve sadece tarayıcıyla çalışan bir yer olsun diye.</li>
+            </ul>
           </div>
         </div>
-        <div class="hero-card">
-          <h2>Bu site neden var?</h2>
-          <ul>
-            <li>• Arkadaşlara “bak ben bunu yaptım” diyebileceğin bir kod alanı olsun diye.</li>
-            <li>• Derste veya akıllı tahtada hızlıca açıp kullanabileceğin araçlar için.</li>
-            <li>• “Ne projesi yapsam?” dediğinde aklına fikir gelsin diye.</li>
-            <li>• Tamamen ücretsiz, reklamsız ve sadece tarayıcıyla çalışan bir yer olsun diye.</li>
-          </ul>
-        </div>
-      </section>
 
-      <section>
-        <h2 class="section-title">Sitede hangi bölümler var?</h2>
+        <h2 class="section-heading">Nasıl katkı verebilirsin?</h2>
         <p class="section-sub">
-          Aşağıda her bölümün kısa özeti yazıyor. Soldaki menüden de istediğin yere
-          tek tıkla gidebilirsin.
+          Kendi yazdığın minik oyun, araç veya kod parçacığını da eklemek istiyorsan;
+          bana kodu gönder, birlikte düzenleriz. İleride bu site tamamen topluluk projesi de olabilir.
         </p>
-        <div class="cards">
-          <article class="card">
-            <h3>🧩 Kod parçacıkları</h3>
-            <p>Python, JS ve C++ için sık kullanılan kısa kod örnekleri. Her birinin üstünde “Kopyala” butonu var.</p>
-            <div class="card-footer">Örnek: rastgele sayı, arka plan rengi değiştirme, dizide maksimum bulma…</div>
-          </article>
-          <article class="card">
-            <h3>🎮 Minik oyunlar</h3>
-            <p>Tarayıcıda çalışan basit JS oyunları: sayı tahmin, taş-kağıt-makas. Tamamen front-end.</p>
-            <div class="card-footer">Konsept: “Kodla yazılmış mini eğlence köşesi”.</div>
-          </article>
-          <article class="card">
-            <h3>💡 Proje fikirleri</h3>
-            <p>Python, JS ve C++ için seviyeli proje fikirleri. Sıkıştığında aç, rastgele birini seç.</p>
-            <div class="card-footer">Her fikir yanında kısa açıklama ve hangi dil için olduğu yazıyor.</div>
-          </article>
-          <article class="card">
-            <h3>🧰 Araç kutusu</h3>
-            <p>Rastgele sayı üretici, isim/öğrenci seçici, güçlü şifre üretici gibi küçük ama işe yarar araçlar.</p>
-            <div class="card-footer">Akıllı tahta veya sınıf içi aktiviteler için de rahat kullanılabilir.</div>
-          </article>
-        </div>
       </section>
 
-      <!-- 1) KOD PARÇACIKLARI -->
-      <section id="snippets">
-        <h2 class="section-title">Kod parçacıkları</h2>
-        <p class="section-sub">Sık lazım olan minik kodlar. Üstteki butonla hızlıca kopyalayabilirsin.</p>
+      <!-- KOD PARÇACIKLARI -->
+      <section id="view-snippets" class="view">
+        <h1>Kod parçacıkları</h1>
+        <p class="lead">Sık lazım olan minik kodlar. Üstteki butonla hızlıca panoya kopyalayabilirsin.</p>
 
         <div class="snippet">
           <div class="snippet-header">
@@ -508,6 +493,16 @@
 
 sayi = random.randint(1, 100)
 print(&quot;Tuttuğum sayı:&quot;, sayi)</code></pre>
+        </div>
+
+        <div class="snippet">
+          <div class="snippet-header">
+            <div>Python – Dosya satır satır okuma</div>
+            <button class="btn-copy" data-target="py-file">Kopyala</button>
+          </div>
+          <pre><code id="py-file">with open(&quot;dosya.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+    for satir in f:
+        print(satir.strip())</code></pre>
         </div>
 
         <div class="snippet">
@@ -544,14 +539,14 @@ int main() {
         </div>
       </section>
 
-      <!-- 2) MİNİK OYUNLAR -->
-      <section id="games">
-        <h2 class="section-title">Canlı minik oyunlar</h2>
-        <p class="section-sub">Hepsi sadece JavaScript ile; tarayıcıda çalışır.</p>
+      <!-- MINIK OYUNLAR -->
+      <section id="view-games" class="view">
+        <h1>Minik oyunlar</h1>
+        <p class="lead">Hepsi tarayıcıda çalışan basit JavaScript oyunları. Kodlarını da inceleyebilirsin.</p>
 
         <div class="tool-grid">
           <div class="tool-card">
-            <h4>Sayı tahmin oyunu</h4>
+            <h3>Sayı tahmin oyunu</h3>
             <p>1–100 arasında tuttuğum sayıyı tahmin et.</p>
             <label for="guess-input">Tahminin:</label>
             <input id="guess-input" type="number" min="1" max="100" />
@@ -560,7 +555,7 @@ int main() {
           </div>
 
           <div class="tool-card">
-            <h4>Taş – Kağıt – Makas</h4>
+            <h3>Taş – Kağıt – Makas</h3>
             <p>Bilgisayara karşı oyna.</p>
             <label>Seçimin:</label>
             <select id="rps-select">
@@ -574,10 +569,10 @@ int main() {
         </div>
       </section>
 
-      <!-- 3) PROJE FİKİRLERİ -->
-      <section id="ideas">
-        <h2 class="section-title">Proje fikirleri</h2>
-        <p class="section-sub">Canın proje yazmak istediğinde, “ne yapsam?” sorusuna cevap olsun.</p>
+      <!-- PROJE FIKIRLERI -->
+      <section id="view-ideas" class="view">
+        <h1>Proje fikirleri</h1>
+        <p class="lead">“Ne yazsam?” dediğinde bakmalık kısa fikirler. Seviyene göre seç, ufak ufak ilerle.</p>
 
         <div class="pill-row">
           <div class="pill active" data-lang="all">Hepsi</div>
@@ -605,23 +600,23 @@ int main() {
           </div>
           <div class="idea" data-lang="cpp">
             <strong>5. Konsol satranç skoru takipçisi (C++)</strong> –
-            <span>Oyun sonuçlarını kaydeden, basit puanlama yapan CLI program.</span>
+            <span>Oyun sonuçlarını kaydeden, ELO benzeri basit puanlama yapan CLI program.</span>
           </div>
           <div class="idea" data-lang="cpp">
             <strong>6. Dosya şifreleme aracı (C++)</strong> –
-            <span>XOR / Caesar cipher mantığıyla metin dosyalarını şifreleyip çözen araç.</span>
+            <span>Basit XOR / Caesar cipher mantığıyla metin dosyalarını şifreleyip çözen araç.</span>
           </div>
         </div>
       </section>
 
-      <!-- 4) ARAÇ KUTUSU -->
-      <section id="tools">
-        <h2 class="section-title">Araç kutusu</h2>
-        <p class="section-sub">Ders, oyun veya günlük kullanım için minik araçlar.</p>
+      <!-- ARAC KUTUSU -->
+      <section id="view-tools" class="view">
+        <h1>Araç kutusu</h1>
+        <p class="lead">Ders, oyun veya günlük kullanım için minik ama işe yarar araçlar.</p>
 
         <div class="tool-grid">
           <div class="tool-card">
-            <h4>Rastgele sayı üretici</h4>
+            <h3>Rastgele sayı üretici</h3>
             <label>Alt sınır:</label>
             <input id="rand-min" type="number" value="1" />
             <label>Üst sınır:</label>
@@ -631,7 +626,7 @@ int main() {
           </div>
 
           <div class="tool-card">
-            <h4>Öğrenci / kişi seçici</h4>
+            <h3>Öğrenci / kişi seçici</h3>
             <p style="margin-bottom:.35rem;">İsimleri virgülle yaz, rastgele birini seçecek.</p>
             <label>İsimler:</label>
             <input id="picker-input" type="text" placeholder="Ali, Ayşe, Veli, ..." />
@@ -640,7 +635,7 @@ int main() {
           </div>
 
           <div class="tool-card">
-            <h4>Güçlü şifre üretici</h4>
+            <h3>Güçlü şifre üretici</h3>
             <label>Uzunluk:</label>
             <input id="pw-length" type="number" value="12" min="6" max="40" />
             <button class="btn-small" id="pw-btn">Şifre üret</button>
@@ -650,41 +645,84 @@ int main() {
       </section>
 
       <footer>
-        ruhbudur · Bu site HTML/CSS/JS + GitHub + Netlify ile yayınlandı.
+        ruhbudur · Bu site HTML/CSS/JS + GitHub + Netlify ile hazırlandı.
       </footer>
-    </main>
-  </div>
+    </div>
+  </main>
+</div>
 
-  <script>
-    // Menüde aktif link
-    const navLinks = document.querySelectorAll(".nav-link");
-    navLinks.forEach(link => {
-      link.addEventListener("click", () => {
-        navLinks.forEach(l => l.classList.remove("active"));
-        link.classList.add("active");
+<script>
+  // Kod yağmuru (Matrix tarzı)
+  const canvas = document.getElementById("code-rain");
+  const ctx = canvas.getContext("2d");
+  let width, height, columns, drops;
+  const chars = "01{}[]()<>;=+-*/$#";
+
+  function initRain() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+    columns = Math.floor(width / 16);
+    drops = Array(columns).fill(0);
+  }
+  window.addEventListener("resize", initRain);
+  initRain();
+
+  function drawRain() {
+    ctx.fillStyle = "rgba(0, 0, 0, 0.25)";
+    ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = "#22c55e";
+    ctx.font = "14px monospace";
+
+    for (let i = 0; i < columns; i++) {
+      const text = chars.charAt(Math.floor(Math.random() * chars.length));
+      const x = i * 16;
+      const y = drops[i] * 16;
+      ctx.fillText(text, x, y);
+      if (y > height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]++;
+    }
+    requestAnimationFrame(drawRain);
+  }
+  drawRain();
+
+  // Sidebar view switch
+  const navButtons = document.querySelectorAll(".nav button");
+  const views = document.querySelectorAll(".view");
+
+  navButtons.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const view = btn.getAttribute("data-view");
+      navButtons.forEach(b => b.classList.remove("active"));
+      btn.classList.add("active");
+      views.forEach(v => {
+        v.classList.toggle("active", v.id === "view-" + view);
       });
     });
+  });
 
-    // Kod kopyalama
-    document.querySelectorAll(".btn-copy").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const id = btn.getAttribute("data-target");
-        const codeEl = document.getElementById(id);
-        const text = codeEl.innerText;
-        navigator.clipboard.writeText(text).then(() => {
-          const old = btn.textContent;
-          btn.textContent = "Kopyalandı!";
-          setTimeout(() => (btn.textContent = old), 1000);
-        });
+  // Kopyala butonları
+  document.querySelectorAll(".btn-copy").forEach(btn => {
+    btn.addEventListener("click", () => {
+      const id = btn.getAttribute("data-target");
+      const codeEl = document.getElementById(id);
+      const text = codeEl.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const old = btn.textContent;
+        btn.textContent = "Kopyalandı!";
+        setTimeout(() => (btn.textContent = old), 900);
       });
     });
+  });
 
-    // Sayı tahmin oyunu
-    let secret = Math.floor(Math.random() * 100) + 1;
-    const guessInput = document.getElementById("guess-input");
-    const guessBtn = document.getElementById("guess-btn");
-    const guessOut = document.getElementById("guess-output");
+  // Sayı tahmin oyunu
+  let secret = Math.floor(Math.random() * 100) + 1;
+  const guessInput = document.getElementById("guess-input");
+  const guessBtn = document.getElementById("guess-btn");
+  const guessOut = document.getElementById("guess-output");
 
+  if (guessBtn) {
     guessBtn.addEventListener("click", () => {
       const val = Number(guessInput.value);
       if (!val || val < 1 || val > 100) {
@@ -704,23 +742,25 @@ int main() {
         guessOut.style.color = "#eab308";
       }
     });
+  }
 
-    // Taş-kağıt-makas
-    const rpsSelect = document.getElementById("rps-select");
-    const rpsBtn = document.getElementById("rps-btn");
-    const rpsOut = document.getElementById("rps-output");
-    const rpsMap = { tas: "Taş", kagit: "Kağıt", makas: "Makas" };
+  // Taş kağıt makas
+  const rpsSelect = document.getElementById("rps-select");
+  const rpsBtn = document.getElementById("rps-btn");
+  const rpsOut = document.getElementById("rps-output");
+  const rpsMap = { tas: "Taş", kagit: "Kağıt", makas: "Makas" };
 
-    function rpsScore(player, bot) {
-      if (player === bot) return "Berabere.";
-      if (
-        (player === "tas" && bot === "makas") ||
-        (player === "kagit" && bot === "tas") ||
-        (player === "makas" && bot === "kagit")
-      ) return "Kazandın!";
-      return "Kaybettin.";
-    }
+  function rpsScore(player, bot) {
+    if (player === bot) return "Berabere.";
+    if (
+      (player === "tas" && bot === "makas") ||
+      (player === "kagit" && bot === "tas") ||
+      (player === "makas" && bot === "kagit")
+    ) return "Kazandın!";
+    return "Kaybettin.";
+  }
 
+  if (rpsBtn) {
     rpsBtn.addEventListener("click", () => {
       const player = rpsSelect.value;
       const arr = ["tas", "kagit", "makas"];
@@ -728,28 +768,31 @@ int main() {
       const sonuc = rpsScore(player, bot);
       rpsOut.textContent = `Sen: ${rpsMap[player]} · Bot: ${rpsMap[bot]} → ${sonuc}`;
     });
+  }
 
-    // Proje fikirleri filtresi
-    const pills = document.querySelectorAll(".pill");
-    const ideas = document.querySelectorAll(".idea");
+  // Proje fikirleri filtresi
+  const pills = document.querySelectorAll(".pill");
+  const ideas = document.querySelectorAll(".idea");
 
-    pills.forEach(p => {
-      p.addEventListener("click", () => {
-        pills.forEach(x => x.classList.remove("active"));
-        p.classList.add("active");
-        const lang = p.getAttribute("data-lang");
-        ideas.forEach(i => {
-          if (lang === "all" || i.getAttribute("data-lang") === lang) {
-            i.style.display = "";
-          } else {
-            i.style.display = "none";
-          }
-        });
+  pills.forEach(p => {
+    p.addEventListener("click", () => {
+      pills.forEach(x => x.classList.remove("active"));
+      p.classList.add("active");
+      const lang = p.getAttribute("data-lang");
+      ideas.forEach(i => {
+        if (lang === "all" || i.getAttribute("data-lang") === lang) {
+          i.style.display = "";
+        } else {
+          i.style.display = "none";
+        }
       });
     });
+  });
 
-    // Araç kutusu: rastgele sayı
-    document.getElementById("rand-btn").addEventListener("click", () => {
+  // Araç: rastgele sayı
+  const randBtn = document.getElementById("rand-btn");
+  if (randBtn) {
+    randBtn.addEventListener("click", () => {
       const min = Number(document.getElementById("rand-min").value) || 0;
       const max = Number(document.getElementById("rand-max").value) || 0;
       const out = document.getElementById("rand-out");
@@ -762,9 +805,12 @@ int main() {
       out.style.color = "#22c55e";
       out.textContent = `Sonuç: ${n}`;
     });
+  }
 
-    // Öğrenci / kişi seçici
-    document.getElementById("picker-btn").addEventListener("click", () => {
+  // Araç: kişi seçici
+  const pickerBtn = document.getElementById("picker-btn");
+  if (pickerBtn) {
+    pickerBtn.addEventListener("click", () => {
       const val = document.getElementById("picker-input").value;
       const out = document.getElementById("picker-out");
       const names = val.split(",").map(x => x.trim()).filter(Boolean);
@@ -777,10 +823,13 @@ int main() {
       out.style.color = "#22c55e";
       out.textContent = `Seçilen: ${pick}`;
     });
+  }
 
-    // Şifre üretici
-    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+?";
-    document.getElementById("pw-btn").addEventListener("click", () => {
+  // Araç: şifre üretici
+  const pwBtn = document.getElementById("pw-btn");
+  const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()-_=+?";
+  if (pwBtn) {
+    pwBtn.addEventListener("click", () => {
       let len = Number(document.getElementById("pw-length").value) || 12;
       if (len < 6) len = 6;
       if (len > 40) len = 40;
@@ -792,6 +841,7 @@ int main() {
       out.style.color = "#22c55e";
       out.textContent = pw;
     });
-  </script>
+  }
+</script>
 </body>
 </html>
