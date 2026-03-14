@@ -35,7 +35,7 @@
       <section class="section">
         <h1>Kod parçacıkları</h1>
         <p class="tagline">
-          Sık lazım olan bazı küçük kodlar. Üstteki “Kopyala”
+          Sık lazım olan bazı küçük kodlar. Üstteki "Kopyala"
           butonuna tıklayıp doğrudan kendi projenine yapıştırabilirsin.
         </p>
       </section>
@@ -51,7 +51,7 @@
           <pre><code id="py-random">import random
 
 sayi = random.randint(1, 100)
-print(&quot;Tuttuğum sayı:&quot;, sayi)</code></pre>
+print("Tuttuğum sayı:", sayi)</code></pre>
           <p>Basit tahmin oyunları veya testler için başlangıç kodu.</p>
         </article>
 
@@ -60,7 +60,7 @@ print(&quot;Tuttuğum sayı:&quot;, sayi)</code></pre>
             <div>2. Dosyadan satır satır okuma</div>
             <button class="btn-copy" data-copy-target="py-file">Kopyala</button>
           </div>
-          <pre><code id="py-file">with open(&quot;veri.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+          <pre><code id="py-file">with open("veri.txt", "r", encoding="utf-8") as f:
     for satir in f:
         print(satir.strip())</code></pre>
           <p>Metin dosyalarındaki verileri satır satır işlemek için kullanılır.</p>
@@ -74,13 +74,61 @@ print(&quot;Tuttuğum sayı:&quot;, sayi)</code></pre>
           <pre><code id="py-timer">import time
 
 saniye = 10
-while saniye &gt; 0:
+while saniye > 0:
     print(saniye)
     time.sleep(1)
     saniye -= 1
 
-print(&quot;Süre doldu!&quot;)</code></pre>
+print("Süre doldu!")</code></pre>
           <p>Konsolda küçük geri sayım/timer yazmak için kullanılabilir.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>4. Listeyi karıştır (shuffle)</div>
+            <button class="btn-copy" data-copy-target="py-shuffle">Kopyala</button>
+          </div>
+          <pre><code id="py-shuffle">import random
+
+isimler = ["Ali", "Ayşe", "Veli", "Zeynep"]
+random.shuffle(isimler)
+print("Sıra:", isimler)</code></pre>
+          <p>Oyun sırası veya quiz soru sırası belirlemek için ideal.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>5. Sözlükten puana göre sıralama</div>
+            <button class="btn-copy" data-copy-target="py-dict-sort">Kopyala</button>
+          </div>
+          <pre><code id="py-dict-sort">ogrenciler = {"Ali": 85, "Ayşe": 92, "Veli": 78}
+sirali = dict(sorted(ogrenciler.items(), key=lambda x: x[1], reverse=True))
+print(sirali)</code></pre>
+          <p>Puan, isim veya başka bir değere göre sıralamak için.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>6. Stringi ters çevir</div>
+            <button class="btn-copy" data-copy-target="py-reverse">Kopyala</button>
+          </div>
+          <pre><code id="py-reverse">metin = "merhaba"
+ters = metin[::-1]
+print(ters)</code></pre>
+          <p>Palindrom kontrolü veya basit şifreleme denemelerinde kullanılır.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>7. JSON dosyası oku</div>
+            <button class="btn-copy" data-copy-target="py-json">Kopyala</button>
+          </div>
+          <pre><code id="py-json">import json
+
+with open("ayarlar.json", "r", encoding="utf-8") as f:
+    veri = json.load(f)
+print(veri["anahtar"])</code></pre>
+          <p>Ayarlar, konfigürasyon veya API yanıtları için sık kullanılır.</p>
         </article>
       </section>
 
@@ -92,9 +140,9 @@ print(&quot;Süre doldu!&quot;)</code></pre>
             <div>1. Butona tıklayınca arka plan rengini değiştir</div>
             <button class="btn-copy" data-copy-target="js-bg">Kopyala</button>
           </div>
-          <pre><code id="js-bg">const colors = [&quot;#0f172a&quot;, &quot;#1d4ed8&quot;, &quot;#16a34a&quot;, &quot;#be123c&quot;];
+          <pre><code id="js-bg">const colors = ["#0f172a", "#1d4ed8", "#16a34a", "#be123c"];
 
-document.querySelector(&quot;button&quot;).addEventListener(&quot;click&quot;, () =&gt; {
+document.querySelector("button").addEventListener("click", () => {
   const secilen = colors[Math.floor(Math.random() * colors.length)];
   document.body.style.backgroundColor = secilen;
 });</code></pre>
@@ -106,13 +154,71 @@ document.querySelector(&quot;button&quot;).addEventListener(&quot;click&quot;, (
             <div>2. Input alanındaki değeri canlı göster</div>
             <button class="btn-copy" data-copy-target="js-live">Kopyala</button>
           </div>
-          <pre><code id="js-live">const input = document.querySelector(&quot;#isim&quot;);
-const cikti = document.querySelector(&quot;#merhaba&quot;);
+          <pre><code id="js-live">const input = document.querySelector("#isim");
+const cikti = document.querySelector("#merhaba");
 
-input.addEventListener(&quot;input&quot;, () =&gt; {
-  cikti.textContent = `Merhaba ${input.value || &quot;?&quot;}`;
+input.addEventListener("input", () => {
+  cikti.textContent = `Merhaba ${input.value || "?"}`;
 });</code></pre>
           <p>Formlarda canlı önizleme için çok işe yarar.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>3. localStorage ile veri sakla / oku</div>
+            <button class="btn-copy" data-copy-target="js-storage">Kopyala</button>
+          </div>
+          <pre><code id="js-storage">// Kaydet
+localStorage.setItem("kullanici", "Ali");
+
+// Oku
+const ad = localStorage.getItem("kullanici") || "Misafir";
+
+// Sil
+localStorage.removeItem("kullanici");</code></pre>
+          <p>Tarayıcı kapatılsa bile veriyi saklamak için (tercih, skor vb.).</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>4. Basit fetch ile API çağrısı</div>
+            <button class="btn-copy" data-copy-target="js-fetch">Kopyala</button>
+          </div>
+          <pre><code id="js-fetch">fetch("https://api.example.com/veri")
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error("Hata:", err));</code></pre>
+          <p>Dış API'lerden veri çekerken kullanılır.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>5. Debounce (yazmayı bitirince tetikle)</div>
+            <button class="btn-copy" data-copy-target="js-debounce">Kopyala</button>
+          </div>
+          <pre><code id="js-debounce">function debounce(fn, ms) {
+  let t;
+  return (...args) => {
+    clearTimeout(t);
+    t = setTimeout(() => fn(...args), ms);
+  };
+}
+const aramaYap = debounce(() => console.log("Aranıyor..."), 300);
+input.addEventListener("input", aramaYap);</code></pre>
+          <p>Arama kutusu gibi yerlerde her tuşta değil, yazı durunca işlem yapmak için.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>6. Tarih/saat biçimlendir (Türkçe)</div>
+            <button class="btn-copy" data-copy-target="js-date">Kopyala</button>
+          </div>
+          <pre><code id="js-date">const simdi = new Date();
+const metin = simdi.toLocaleDateString("tr-TR", {
+  day: "2-digit", month: "long", year: "numeric"
+});
+console.log(metin);</code></pre>
+          <p>Kullanıcıya Türkçe tarih göstermek için.</p>
         </article>
       </section>
 
@@ -134,10 +240,70 @@ int main() {
     for (int x : a) {
         if (x &gt; maks) maks = x;
     }
-    cout &lt;&lt; &quot;En büyük:&quot; &lt;&lt; maks &lt;&lt; endl;
+    cout &lt;&lt; "En büyük:" &lt;&lt; maks &lt;&lt; endl;
     return 0;
 }</code></pre>
           <p>Dizilerle çalışırken en temel arama örneklerinden biri.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>2. Faktöriyel (recursive)</div>
+            <button class="btn-copy" data-copy-target="cpp-fact">Kopyala</button>
+          </div>
+          <pre><code id="cpp-fact">#include &lt;iostream&gt;
+using namespace std;
+
+int faktoriyel(int n) {
+    if (n &lt;= 1) return 1;
+    return n * faktoriyel(n - 1);
+}
+int main() {
+    cout &lt;&lt; "5! = " &lt;&lt; faktoriyel(5) &lt;&lt; endl;
+    return 0;
+}</code></pre>
+          <p>Recursion ve matematiksel fonksiyon örneği.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>3. String ters çevir</div>
+            <button class="btn-copy" data-copy-target="cpp-reverse">Kopyala</button>
+          </div>
+          <pre><code id="cpp-reverse">#include &lt;iostream&gt;
+#include &lt;string&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    string s = "merhaba";
+    reverse(s.begin(), s.end());
+    cout &lt;&lt; s &lt;&lt; endl;
+    return 0;
+}</code></pre>
+          <p>STL algorithm ile kısa ve net.</p>
+        </article>
+
+        <article class="snippet">
+          <div class="snippet-header">
+            <div>4. İkili arama (binary search)</div>
+            <button class="btn-copy" data-copy-target="cpp-binary">Kopyala</button>
+          </div>
+          <pre><code id="cpp-binary">#include &lt;iostream&gt;
+#include &lt;vector&gt;
+#include &lt;algorithm&gt;
+using namespace std;
+
+int main() {
+    vector&lt;int&gt; v = {2, 5, 8, 12, 16};
+    int aranan = 8;
+    if (binary_search(v.begin(), v.end(), aranan))
+        cout &lt;&lt; "Bulundu" &lt;&lt; endl;
+    else
+        cout &lt;&lt; "Yok" &lt;&lt; endl;
+    return 0;
+}</code></pre>
+          <p>Sıralı dizide hızlı arama; dizinin sıralı olması gerekir.</p>
         </article>
       </section>
 
