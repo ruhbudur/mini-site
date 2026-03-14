@@ -378,3 +378,60 @@ textarea::placeholder {
 .sidebar a:hover, nav a:hover {
   color: #7dd3fc !important;
 }
+
+.content {
+  max-width: 720px;
+}
+
+.content p,
+.content .tagline,
+.content li,
+.content .idea,
+.content .snippet-header small {
+  line-height: 1.72;
+  margin-bottom: 0.85rem;
+}
+
+.content p:last-child,
+.content li:last-child {
+  margin-bottom: 0;
+}
+
+.content ul {
+  padding-left: 1.35rem;
+}
+
+.content li {
+  margin-bottom: 0.35rem;
+}
+
+.content h1 {
+  line-height: 1.3;
+  margin-bottom: 0.5rem;
+}
+
+.content h2 {
+  line-height: 1.35;
+  margin-bottom: 0.5rem;
+  margin-top: 1.5rem;
+}
+
+.content h2:first-of-type {
+  margin-top: 0;
+}
+
+.content p,
+.content .tagline,
+.content li {
+  color: #d8dce0 !important;
+}
+
+.content h1,
+.content h2,
+.content h3 {
+  color: #c8e0f0 !important;
+}
+
+.content pre {
+  line-height: 1.5;
+}
