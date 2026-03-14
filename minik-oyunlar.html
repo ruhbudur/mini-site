@@ -38,6 +38,10 @@
           Tam ekran uygulama değil, derste veya arkadaş ortamında
           birkaç dakika eğlenmek için yapılmış küçük oyunlar.
         </p>
+        <p class="tagline">
+          Hepsi tarayıcıda çalışır; kodları sayfanın altında bulabilirsin.
+          İstersen kopyalayıp kendi kurallarını ekleyebilirsin (skor, süre, zorluk).
+        </p>
       </section>
 
       <section class="section">
@@ -77,6 +81,30 @@
       </section>
 
       <section class="section">
+        <h2>Yazı – Tura</h2>
+        <p class="tagline">
+          Tek tıkla yazı veya tura. Sıra belirleme, küçük kararlar veya oyun için.
+        </p>
+        <div class="tool-card">
+          <h3>Canlı</h3>
+          <button class="btn-small" id="yt-btn">At</button>
+          <div class="tool-output" id="yt-output"></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Zar atma</h2>
+        <p class="tagline">
+          1–6 arası rastgele zar sonucu. İki zar toplamı veya oyun kurallarını kendin ekleyebilirsin.
+        </p>
+        <div class="tool-card">
+          <h3>Canlı</h3>
+          <button class="btn-small" id="dice-btn">Zar at</button>
+          <div class="tool-output" id="dice-output"></div>
+        </div>
+      </section>
+
+      <section class="section">
         <h2>Kodlar</h2>
         <p class="tagline">
           Aşağıdaki kodları kendi projene alıp geliştirebilirsin.
@@ -88,27 +116,27 @@
             <button class="btn-copy" data-copy-target="js-guess">Kopyala</button>
           </div>
           <pre><code id="js-guess">let secret = Math.floor(Math.random() * 100) + 1;
-const input = document.getElementById(&quot;guess-input&quot;);
-const btn = document.getElementById(&quot;guess-btn&quot;);
-const out = document.getElementById(&quot;guess-output&quot;);
+const input = document.getElementById("guess-input");
+const btn = document.getElementById("guess-btn");
+const out = document.getElementById("guess-output");
 
-btn.addEventListener(&quot;click&quot;, () =&gt; {
+btn.addEventListener("click", () => {
   const val = Number(input.value);
   if (!val || val &lt; 1 || val &gt; 100) {
-    out.textContent = &quot;1–100 arasında bir sayı yaz.&quot;;
-    out.style.color = &quot;#f97316&quot;;
+    out.textContent = "1–100 arasında bir sayı yaz.";
+    out.style.color = "#f97316";
     return;
   }
   if (val === secret) {
-    out.textContent = &quot;Doğru! Yeni sayı tuttum.&quot;;
-    out.style.color = &quot;#22c55e&quot;;
+    out.textContent = "Doğru! Yeni sayı tuttum.";
+    out.style.color = "#22c55e";
     secret = Math.floor(Math.random() * 100) + 1;
   } else if (val &lt; secret) {
-    out.textContent = &quot;Daha büyük dene.&quot;;
-    out.style.color = &quot;#eab308&quot;;
+    out.textContent = "Daha büyük dene.";
+    out.style.color = "#eab308";
   } else {
-    out.textContent = &quot;Daha küçük dene.&quot;;
-    out.style.color = &quot;#eab308&quot;;
+    out.textContent = "Daha küçük dene.";
+    out.style.color = "#eab308";
   }
 });</code></pre>
         </article>
@@ -122,7 +150,7 @@ btn.addEventListener(&quot;click&quot;, () =&gt; {
   </div>
   <script src="script-common.js" type="module"></script>
   <script>
-    // Aynı JS oyunları burada da aktive et
+    // Sayı tahmin
     let secret = Math.floor(Math.random() * 100) + 1;
     const guessInput = document.getElementById("guess-input");
     const guessBtn = document.getElementById("guess-btn");
@@ -147,6 +175,7 @@ btn.addEventListener(&quot;click&quot;, () =&gt; {
       }
     });
 
+    // Taş kağıt makas
     const rpsSelect = document.getElementById("rps-select");
     const rpsBtn = document.getElementById("rps-btn");
     const rpsOut = document.getElementById("rps-output");
@@ -167,6 +196,27 @@ btn.addEventListener(&quot;click&quot;, () =&gt; {
       const sonuc = rpsScore(player, bot);
       rpsOut.textContent = `Sen: ${rpsMap[player]} · Bot: ${rpsMap[bot]} → ${sonuc}`;
     });
+
+    // Yazı – tura
+    const ytBtn = document.getElementById("yt-btn");
+    const ytOut = document.getElementById("yt-output");
+    if (ytBtn && ytOut) {
+      ytBtn.addEventListener("click", () => {
+        ytOut.textContent = Math.random() < 0.5 ? "Yazı" : "Tura";
+        ytOut.style.color = "#22c55e";
+      });
+    }
+
+    // Zar
+    const diceBtn = document.getElementById("dice-btn");
+    const diceOut = document.getElementById("dice-output");
+    if (diceBtn && diceOut) {
+      diceBtn.addEventListener("click", () => {
+        const z = Math.floor(Math.random() * 6) + 1;
+        diceOut.textContent = "Zar: " + z;
+        diceOut.style.color = "#22c55e";
+      });
+    }
   </script>
 </body>
 </html>
