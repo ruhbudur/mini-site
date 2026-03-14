@@ -10,8 +10,11 @@
   <div class="layout">
     <aside class="sidebar">
       <div class="logo-block">
-        <span class="logo-icon">R</span>
-        <span class="logo-text">RUHBUDUR <small>Mini kod & araç sitesi</small></span>
+        <div class="logo-circle">R</div>
+        <div class="logo-text">
+          <span>RUHBUDUR</span>
+          <span>Mini kod & araç sitesi</span>
+        </div>
       </div>
       <nav class="nav">
         <a href="index.html" class="active">Ana sayfa</a>
@@ -20,15 +23,17 @@
         <a href="proje-fikirleri.html">Proje fikirleri</a>
         <a href="arac-kutusu.html">Araç kutusu</a>
       </nav>
-      <p class="sidebar-desc">Kodsuz rehberler. Amatör kod öğrenenlere mini, işe yarar bilgiler ve kodlar sunar.</p>
+      <div class="sidebar-footer">
+        Kodsuz rehberler. Amatör kod öğrenenlere mini, işe yarar bilgiler ve kodlar sunar.
+      </div>
     </aside>
-    <main class="main">
+    <main class="content">
       <h1>Ana sayfa</h1>
-      <p class="intro">Basit ama işe yarar mini kod & araç sitesi. Bu site, kod yazmaya yeni başlayanlar ve eğlence için uğraşanlar için hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve akıllı tahta / sınıf için kullanılabilecek mini araçlardan oluşuyor.</p>
-      <div class="tags">
-        <span>HTML-CSS-JavaScript</span>
-        <span>Python & C++ örnekleri</span>
-        <span class="tag-aktif">Öğrenci & hobi projesi</span>
+      <p class="tagline">Basit ama işe yarar mini kod & araç sitesi. Bu site, kod yazmaya yeni başlayanlar ve eğlence için uğraşanlar için hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve akıllı tahta / sınıf için kullanılabilecek mini araçlardan oluşuyor.</p>
+      <div class="pill-row">
+        <span class="pill">HTML-CSS-JavaScript</span>
+        <span class="pill">Python & C++ örnekleri</span>
+        <span class="pill active">Öğrenci & hobi projesi</span>
       </div>
 
       <section class="section">
@@ -43,20 +48,23 @@
 
       <section class="section">
         <h2>Sitede hangi bölümler var?</h2>
-        <p class="intro">Aşağıda her bölümün kısa açıklaması var. Soldaki menüden de istediğin yere tek tıkla gidebilirsin.</p>
-        <div class="bolumler">
-          <a href="kod-parcaciklari.html">Kod parçacıkları</a>
-          <a href="minik-oyunlar.html">Minik oyunlar</a>
-          <a href="proje-fikirleri.html">Proje fikirleri</a>
-          <a href="arac-kutusu.html">Araç kutusu</a>
+        <p>Aşağıda her bölümün kısa açıklaması var. Soldaki menüden de istediğin yere tek tıkla gidebilirsin.</p>
+        <div class="cards">
+          <a href="kod-parcaciklari.html" class="card">Kod parçacıkları</a>
+          <a href="minik-oyunlar.html" class="card">Minik oyunlar</a>
+          <a href="proje-fikirleri.html" class="card">Proje fikirleri</a>
+          <a href="arac-kutusu.html" class="card">Araç kutusu</a>
         </div>
       </section>
 
       <section class="section">
         <h2>Kod parçacıkları</h2>
-        <p class="intro">Sık lazım olan minik kodlar. Üstteki "Kopyala" butonuna tıklayıp doğrudan kendi projenine yapıştırabilirsin.</p>
-        <div class="kod-blok">
-          <button type="button" class="kopyala-btn" data-kod="import random\nsayi = random.randint(1, 100)\nprint(\"Tuttuğum sayı:\", sayi)">Kopyala</button>
+        <p>Sık lazım olan minik kodlar. Üstteki "Kopyala" butonuna tıklayıp doğrudan kendi projenine yapıştırabilirsin.</p>
+        <div class="snippet">
+          <div class="snippet-header">
+            <span>1 ile 100 arası rastgele sayı</span>
+            <button type="button" class="btn-copy kopyala-btn" data-kod="import random\nsayi = random.randint(1, 100)\nprint(\"Tuttuğum sayı:\", sayi)">Kopyala</button>
+          </div>
           <pre><code>import random
 sayi = random.randint(1, 100)
 print("Tuttuğum sayı:", sayi)</code></pre>
