@@ -2,55 +2,128 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
+  <title>RUHBUDUR · Mini Kod & Araç Sitesi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Bakımda</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
-    #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
-    .overlay {
-      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-      z-index: 1;
-      display: flex; flex-direction: column; align-items: center; justify-content: center;
-      text-align: center; pointer-events: none;
-    }
-    .overlay h1 {
-      font-family: system-ui, sans-serif;
-      font-size: clamp(2.5rem, 8vw, 5rem);
-      font-weight: 800;
-      color: #dc2626;
-      text-shadow: 0 0 20px rgba(220,38,38,0.8), 0 0 40px rgba(220,38,38,0.5);
-      letter-spacing: 0.15em;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="/favicon.ico" />
 </head>
 <body>
-  <canvas id="canvas"></canvas>
-  <div class="overlay"><h1>BAKIM YAPILIYOR</h1></div>
-  <script>
-    var c = document.getElementById("canvas");
-    var ctx = c.getContext("2d");
-    function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
-    window.onresize = resize;
-    resize();
-    var chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ<>/{}[]=+";
-    var f = 16;
-    var cols = Math.floor(c.width / f);
-    var drops = [];
-    for (var i = 0; i < cols; i++) drops[i] = Math.random() * 50;
-    function draw() {
-      ctx.fillStyle = "rgba(0,0,0,0.06)";
-      ctx.fillRect(0, 0, c.width, c.height);
-      ctx.fillStyle = "#22c55e";
-      ctx.font = f + "px monospace";
-      for (var i = 0; i < drops.length; i++) {
-        var t = chars[Math.floor(Math.random() * chars.length)];
-        ctx.fillText(t, i * f, drops[i] * f);
-        if (drops[i] * f > c.height && Math.random() > 0.97) drops[i] = 0;
-        else drops[i]++;
-      }
-    }
-    setInterval(draw, 45);
-  </script>
+  <div class="layout">
+    <aside class="sidebar">
+      <div>
+        <div class="logo-block">
+          <div class="logo-circle">R</div>
+          <div class="logo-text">
+            <span>RUHBUDUR</span>
+            <span>Mini kod & araç sitesi</span>
+          </div>
+        </div>
+        <nav class="nav">
+          <a href="index.html" class="active">Ana sayfa</a>
+          <a href="kod-parcaciklari.html">Kod parçacıkları</a>
+          <a href="minik-oyunlar.html">Minik oyunlar</a>
+          <a href="proje-fikirleri.html">Proje fikirleri</a>
+          <a href="arac-kutusu.html">Araç kutusu</a>
+        </nav>
+      </div>
+      <div class="sidebar-footer">
+        Kurucu: <strong>ruhbudur</strong><br />
+        Kod yazmaya yeni başlayanlar ve eğlenceli
+        mini araçlar isteyenler için hazırlanmış küçük bir site.
+      </div>
+    </aside>
+
+    <main class="content">
+      <section class="section">
+        <h1>Basit ama işe yarar mini kod & araç sitesi.</h1>
+        <p class="tagline">
+          Bu site, kod yazmaya yeni başlayanlar ve eğlence için ufak şeyler
+          yapmak isteyenler için hazır kod parçacıkları, minik oyunlar,
+          proje fikirleri ve ders / tahta / sınıf ortamında kullanılabilecek
+          mini araçlardan oluşuyor.
+        </p>
+
+        <div class="pill-row">
+          <span class="badge blue">HTML · CSS · JavaScript</span>
+          <span class="badge green">Python &amp; C++ örnekleri</span>
+          <span class="badge yellow">Eğlence + eğitim projeleri</span>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Sitede hangi bölümler var?</h2>
+        <p class="tagline">
+          Aşağıda her bölümün kısa özeti var; soldan menüden veya kartlara
+          tıklayarak ilgili sayfaya gidebilirsin.
+        </p>
+        <div class="cards">
+          <article class="card">
+            <h3>🧩 Kod parçacıkları</h3>
+            <p>
+              Python, JS ve C++ için sık kullanılan kod şablonları.
+              Kopyala–yapıştır kullan; altında küçük açıklamalar var.
+            </p>
+          </article>
+          <article class="card">
+            <h3>🎮 Minik oyunlar</h3>
+            <p>
+              Sayı tahmin, taş-kağıt-makas gibi basit ama tarayıcıda çalışan
+              küçük oyunlar. Kodları da sayfada gözüküyor.
+            </p>
+          </article>
+          <article class="card">
+            <h3>💡 Proje fikirleri</h3>
+            <p>
+              “Ne yazsam?” dediğinde aklına fikir gelsin diye,
+              seviye seviye hazırlanmış mini proje fikri listeleri.
+            </p>
+          </article>
+          <article class="card">
+            <h3>🧰 Araç kutusu</h3>
+            <p>
+              Rastgele sayı üretici, isim/öğrenci seçici, güçlü şifre
+              üretici gibi ufak tefek araçlar. Akıllı tahta veya derste
+              rahat kullanılabilir.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Bu site neden var?</h2>
+        <div class="cards">
+          <article class="card">
+            <h3>Arkadaşlarla paylaşmak için</h3>
+            <p>
+              “Bak bunu yazdım, siteye koydum” diyebileceğin bir yer olsun.
+              Kod parçacıklarını ve fikirlerini ekleyip arkadaşlarınla
+              linki paylaşabilirsin.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Tahta / sınıf için ufak araçlar</h3>
+            <p>
+              Rastgele öğrenci seçici veya basit oyunları derste
+              direkt tarayıcıdan açıp kullanabilirsin. Ekstra program
+              kurmaya gerek yok.
+            </p>
+          </article>
+          <article class="card">
+            <h3>Reklamsız, sade bir yer olsun diye</h3>
+            <p>
+              Tamamen ücretsiz, reklamsız ve sadece tarayıcıyla çalışan
+              küçük bir deney alanı. İsteyen herkes kodu alıp kendi
+              projesine uyarlayabilir.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer>
+        ruhbudur · Bu site HTML/CSS/JS + GitHub + Netlify ile hazırlanmıştır.
+      </footer>
+    </main>
+  </div>
+  <script src="script-common.js" type="module"></script>
 </body>
 </html>
