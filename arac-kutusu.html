@@ -38,6 +38,10 @@
           Özel bir uygulama indirmeden browser üzerinden kullanabileceğin
           küçük ama faydalı mini araçlar.
         </p>
+        <p class="tagline">
+          Ders, oyun veya günlük işlerde sıra belirleme, şifre oluşturma,
+          isimleri gruplara bölme gibi işler tek tıkla burada.
+        </p>
       </section>
 
       <section class="section">
@@ -79,6 +83,38 @@
             <button class="btn-small" id="pw-btn">Şifre üret</button>
             <div class="tool-output" id="pw-out"></div>
           </div>
+
+          <div class="tool-card">
+            <h3>Yazı – Tura</h3>
+            <p>
+              Tek tıkla yazı veya tura. Sıra ve karar vermek için kullanılabilir.
+            </p>
+            <button class="btn-small" id="arac-yt-btn">At</button>
+            <div class="tool-output" id="arac-yt-out"></div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Zar atma</h3>
+            <p>
+              1–6 arası rastgele zar. Oyun veya sıra belirlemede kullan.
+            </p>
+            <button class="btn-small" id="arac-dice-btn">Zar at</button>
+            <div class="tool-output" id="arac-dice-out"></div>
+          </div>
+
+          <div class="tool-card">
+            <h3>Gruplara böl</h3>
+            <p>
+              İsimleri virgülle yaz; kaç gruba bölmek istediğini gir.
+              Rastgele eşit gruplar oluşturulur.
+            </p>
+            <label>İsimler (virgülle):</label>
+            <input id="group-names" type="text" placeholder="Ali, Ayşe, Veli, ..." />
+            <label>Grup sayısı:</label>
+            <input id="group-count" type="number" value="2" min="2" max="20" />
+            <button class="btn-small" id="group-btn">Gruplara böl</button>
+            <div class="tool-output" id="group-out"></div>
+          </div>
         </div>
       </section>
 
@@ -101,7 +137,7 @@
       }
       const n = Math.floor(Math.random() * (max - min + 1)) + min;
       out.style.color = "#22c55e";
-      out.textContent = `Sonuç: ${n}`;
+      out.textContent = "Sonuç: " + n;
     });
 
     // Öğrenci seçici
@@ -116,7 +152,7 @@
       }
       const pick = names[Math.floor(Math.random() * names.length)];
       out.style.color = "#22c55e";
-      out.textContent = `Seçilen: ${pick}`;
+      out.textContent = "Seçilen: " + pick;
     });
 
     // Şifre üretici
@@ -133,6 +169,50 @@
       out.style.color = "#22c55e";
       out.textContent = pw;
     });
+
+    // Yazı – tura
+    const aracYtBtn = document.getElementById("arac-yt-btn");
+    const aracYtOut = document.getElementById("arac-yt-out");
+    if (aracYtBtn && aracYtOut) {
+      aracYtBtn.addEventListener("click", () => {
+        aracYtOut.textContent = Math.random() < 0.5 ? "Yazı" : "Tura";
+        aracYtOut.style.color = "#22c55e";
+      });
+    }
+
+    // Zar
+    const aracDiceBtn = document.getElementById("arac-dice-btn");
+    const aracDiceOut = document.getElementById("arac-dice-out");
+    if (aracDiceBtn && aracDiceOut) {
+      aracDiceBtn.addEventListener("click", () => {
+        const z = Math.floor(Math.random() * 6) + 1;
+        aracDiceOut.textContent = "Zar: " + z;
+        aracDiceOut.style.color = "#22c55e";
+      });
+    }
+
+    // Gruplara böl
+    const groupBtn = document.getElementById("group-btn");
+    const groupOut = document.getElementById("group-out");
+    if (groupBtn && groupOut) {
+      groupBtn.addEventListener("click", () => {
+        const names = document.getElementById("group-names").value.split(",").map(x => x.trim()).filter(Boolean);
+        let n = Number(document.getElementById("group-count").value) || 2;
+        if (n < 2) n = 2;
+        if (n > 20) n = 20;
+        if (!names.length) {
+          groupOut.style.color = "#f97316";
+          groupOut.textContent = "Önce isimleri virgülle yaz.";
+          return;
+        }
+        const shuffled = names.slice().sort(() => Math.random() - 0.5);
+        const groups = Array.from({ length: n }, () => []);
+        shuffled.forEach((name, i) => groups[i % n].push(name));
+        const text = groups.map((g, i) => "Grup " + (i + 1) + ": " + g.join(", ")).join(" · ");
+        groupOut.style.color = "#22c55e";
+        groupOut.textContent = text;
+      });
+    }
   </script>
 </body>
 </html>
