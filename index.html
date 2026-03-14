@@ -6,13 +6,36 @@
   <title>Ana sayfa – Mini Kod & Araç sitesi</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    .logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
-    .logo-circle { width: 40px; height: 40px; background: #00c853; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1.25rem; flex-shrink: 0; }
-    .logo-wrap .logo-text { font-size: 1.1rem; font-weight: 700; color: #00d9ff; line-height: 1.3; }
-    .logo-wrap .logo-text small { display: block; font-weight: 400; font-size: 0.8rem; opacity: 0.9; color: #b8e0ff; }
+    .ana-sayfa .layout { display: flex; min-height: 100vh; background: #1a1a2e; color: #e8e8e8; font-family: 'Segoe UI', system-ui, sans-serif; }
+    .ana-sayfa .sidebar { width: 260px; background: #16162a; padding: 1.25rem 1rem; border-right: 1px solid #2a2a4a; display: flex; flex-direction: column; flex-shrink: 0; }
+    .ana-sayfa .logo-wrap { display: flex; align-items: center; gap: 10px; margin-bottom: 1.25rem; }
+    .ana-sayfa .logo-circle { width: 40px; height: 40px; background: #00c853; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: #fff; font-weight: 700; font-size: 1.25rem; flex-shrink: 0; }
+    .ana-sayfa .logo-text { font-size: 1.05rem; font-weight: 700; color: #fff; line-height: 1.35; }
+    .ana-sayfa .logo-text small { display: block; font-weight: 400; font-size: 0.8rem; color: #9ca3af; }
+    .ana-sayfa .nav a { display: block; padding: 0.5rem 0.75rem; color: #d1d5db; text-decoration: none; border-radius: 8px; margin-bottom: 2px; font-size: 0.95rem; }
+    .ana-sayfa .nav a:hover { color: #00d9ff; background: rgba(0,217,255,0.08); }
+    .ana-sayfa .nav a.active { color: #00d9ff; background: rgba(0,217,255,0.12); border-left: 3px solid #00c853; padding-left: calc(0.75rem - 3px); }
+    .ana-sayfa .sidebar-desc { margin-top: auto; padding-top: 1rem; border-top: 1px solid #2a2a4a; font-size: 0.8rem; color: #9ca3af; line-height: 1.5; }
+    .ana-sayfa .main { flex: 1; padding: 2rem; overflow: auto; max-width: 720px; }
+    .ana-sayfa .main h1 { font-size: 1.6rem; font-weight: 700; color: #fff; margin: 0 0 0.5rem; }
+    .ana-sayfa .main .intro { font-size: 0.95rem; color: #9ca3af; line-height: 1.6; margin: 0 0 1.25rem; }
+    .ana-sayfa .tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1.5rem; }
+    .ana-sayfa .tags span { padding: 0.35rem 0.75rem; border-radius: 6px; font-size: 0.85rem; background: #252535; color: #b8e0ff; border: 1px solid #333; }
+    .ana-sayfa .tags span.tag-aktif { border-color: #00c853; color: #00c853; }
+    .ana-sayfa .section { margin-bottom: 1.75rem; }
+    .ana-sayfa .section h2 { font-size: 1.1rem; font-weight: 600; color: #b8e0ff; margin: 0 0 0.5rem; }
+    .ana-sayfa .section p { font-size: 0.9rem; color: #d1d5db; line-height: 1.6; margin: 0 0 0.75rem; }
+    .ana-sayfa .section ul { margin: 0; padding-left: 1.25rem; color: #d1d5db; font-size: 0.9rem; line-height: 1.7; }
+    .ana-sayfa .bolumler { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 0.75rem; margin-top: 0.5rem; }
+    .ana-sayfa .bolumler a { display: block; padding: 0.75rem 1rem; background: #252535; border: 1px solid #333; border-radius: 8px; color: #00d9ff; text-decoration: none; font-size: 0.9rem; font-weight: 500; transition: background 0.15s, border-color 0.15s; }
+    .ana-sayfa .bolumler a:hover { background: #2a2a3e; border-color: #00d9ff; }
+    .ana-sayfa .kod-blok { position: relative; background: #0d1117; border: 1px solid #30363d; border-radius: 8px; padding: 1rem 1rem 2.5rem; margin-top: 0.5rem; }
+    .ana-sayfa .kod-blok pre { margin: 0; font-family: ui-monospace, monospace; font-size: 0.85rem; color: #e6edf3; line-height: 1.5; overflow-x: auto; }
+    .ana-sayfa .kod-blok .kopyala-btn { position: absolute; top: 0.5rem; right: 0.5rem; padding: 0.35rem 0.65rem; background: #00c853; color: #000; border: none; border-radius: 6px; font-size: 0.8rem; font-weight: 600; cursor: pointer; }
+    .ana-sayfa .kod-blok .kopyala-btn:hover { background: #00e676; }
   </style>
 </head>
-<body>
+<body class="ana-sayfa">
   <div class="layout">
     <aside class="sidebar">
       <div class="logo-wrap">
@@ -26,18 +49,18 @@
         <a href="proje-fikirleri.html">Proje fikirleri</a>
         <a href="arac-kutusu.html">Araç kutusu</a>
       </nav>
-      <p class="sidebar-desc">Kodsuz rehberler: Amatör kod öğrenenlere mini, işe yarar bilgiler ve kodlar sunar.</p>
+      <p class="sidebar-desc">Kodsuz rehberler. Amatör kod öğrenenlere mini, işe yarar bilgiler ve kodlar sunar.</p>
     </aside>
     <main class="main">
-      <h1>Basit ama işe yarar mini kod & araç sitesi.</h1>
-      <p class="intro">Bu site, kod yazmaya yeni başlayanlar ve eğlence için uğraşanlar için hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve akıllı tahta / sınıf için kullanılabilecek mini araçlardan oluşuyor.</p>
+      <h1>Ana sayfa</h1>
+      <p class="intro">Basit ama işe yarar mini kod & araç sitesi. Bu site, kod yazmaya yeni başlayanlar ve eğlence için uğraşanlar için hazır kod parçacıkları, küçük oyunlar, proje fikirleri ve akıllı tahta / sınıf için kullanılabilecek mini araçlardan oluşuyor.</p>
       <div class="tags">
         <span>HTML-CSS-JavaScript</span>
         <span>Python & C++ örnekleri</span>
         <span class="tag-aktif">Öğrenci & hobi projesi</span>
       </div>
 
-      <section class="kart">
+      <section class="section">
         <h2>Bu site neden var?</h2>
         <ul>
           <li>Anlaşılabilirlik ve hız önemliydi.</li>
@@ -47,23 +70,27 @@
         </ul>
       </section>
 
-      <h2>Sitede hangi bölümler var?</h2>
-      <p class="intro">Aşağıda her bölümün kısa açıklaması var. Soldaki menüden de istediğin yere tek tıkla gidebilirsin.</p>
-      <div class="bolumler">
-        <a href="kod-parcaciklari.html">Kod parçacıkları</a>
-        <a href="minik-oyunlar.html">Minik oyunlar</a>
-        <a href="proje-fikirleri.html">Proje fikirleri</a>
-        <a href="arac-kutusu.html">Araç kutusu</a>
-      </div>
+      <section class="section">
+        <h2>Sitede hangi bölümler var?</h2>
+        <p class="intro">Aşağıda her bölümün kısa açıklaması var. Soldaki menüden de istediğin yere tek tıkla gidebilirsin.</p>
+        <div class="bolumler">
+          <a href="kod-parcaciklari.html">Kod parçacıkları</a>
+          <a href="minik-oyunlar.html">Minik oyunlar</a>
+          <a href="proje-fikirleri.html">Proje fikirleri</a>
+          <a href="arac-kutusu.html">Araç kutusu</a>
+        </div>
+      </section>
 
-      <h2>Kod parçacıkları</h2>
-      <p class="intro">Sık lazım olan minik kodlar. Butona tıkla ve anında kopyalayabilirsin.</p>
-      <div class="kod-blok">
-        <pre><code>import random
+      <section class="section">
+        <h2>Kod parçacıkları</h2>
+        <p class="intro">Sık lazım olan minik kodlar. Üstteki "Kopyala" butonuna tıklayıp doğrudan kendi projenine yapıştırabilirsin.</p>
+        <div class="kod-blok">
+          <pre><code>import random
 sayi = random.randint(1, 100)
 print("Tuttuğum sayı:", sayi)</code></pre>
-        <button type="button" class="kopyala-btn" data-kod="import random\nsayi = random.randint(1, 100)\nprint(\"Tuttuğum sayı:\", sayi)">Kopyala</button>
-      </div>
+          <button type="button" class="kopyala-btn" data-kod="import random\nsayi = random.randint(1, 100)\nprint(\"Tuttuğum sayı:\", sayi)">Kopyala</button>
+        </div>
+      </section>
     </main>
   </div>
   <script src="script-common.js"></script>
