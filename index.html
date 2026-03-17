@@ -2,213 +2,55 @@
 <html lang="tr">
 <head>
   <meta charset="UTF-8" />
-  <title>RUHBUDUR · Mini Kod & Araç Sitesi</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="stylesheet" href="style.css" />
-  <link rel="icon" href="/favicon.ico" />
+  <title>Bakımda</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; background: #000; }
+    #canvas { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
+    .overlay {
+      position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+      z-index: 1;
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      text-align: center; pointer-events: none;
+    }
+    .overlay h1 {
+      font-family: system-ui, sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      font-weight: 800;
+      color: #dc2626;
+      text-shadow: 0 0 20px rgba(220,38,38,0.8), 0 0 40px rgba(220,38,38,0.5);
+      letter-spacing: 0.15em;
+    }
+  </style>
 </head>
 <body>
-  <div class="layout">
-    <aside class="sidebar">
-      <div>
-        <div class="logo-block">
-          <div class="logo-circle">R</div>
-          <div class="logo-text">
-            <span>RUHBUDUR</span>
-            <span>Mini kod & araç sitesi</span>
-          </div>
-        </div>
-        <nav class="nav">
-          <a href="index.html" class="active">Ana sayfa</a>
-          <a href="kod-parcaciklari.html">Kod parçacıkları</a>
-          <a href="minik-oyunlar.html">Minik oyunlar</a>
-          <a href="proje-fikirleri.html">Proje fikirleri</a>
-          <a href="arac-kutusu.html">Araç kutusu</a>
-        </nav>
-      </div>
-      <div class="sidebar-footer">
-        Kurucu: <strong>ruhbudur</strong><br />
-        Kod yazmaya yeni başlayanlar ve eğlenceli
-        mini araçlar isteyenler için hazırlanmış küçük bir site.
-      </div>
-    </aside>
-
-    <main class="content">
-      <section class="section">
-        <h1>Basit ama işe yarar mini kod & araç sitesi.</h1>
-        <p class="tagline">
-          Bu site, kod yazmaya yeni başlayanlar ve eğlence için ufak şeyler
-          yapmak isteyenler için hazır kod parçacıkları, minik oyunlar,
-          proje fikirleri ve ders / tahta / sınıf ortamında kullanılabilecek
-          mini araçlardan oluşuyor. Tüm örnekler kopyala–yapıştır uyumlu;
-          ekstra kurulum olmadan tarayıcıda veya kendi editöründe deneyebilirsin.
-        </p>
-        <p class="tagline">
-          İster tek başına proje yap, ister derste tahtada kullan, ister
-          arkadaşlarınla paylaş—hepsi burada, reklamsız ve ücretsiz.
-        </p>
-
-        <div class="pill-row">
-          <span class="badge blue">HTML · CSS · JavaScript</span>
-          <span class="badge green">Python &amp; C++ örnekleri</span>
-          <span class="badge yellow">Eğlence + eğitim projeleri</span>
-          <span class="badge blue">Kopyala–yapıştır hazır</span>
-          <span class="badge green">Ders &amp; akıllı tahta uyumlu</span>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Sitede hangi bölümler var?</h2>
-        <p class="tagline">
-          Aşağıda her bölümün kısa özeti var; soldan menüden veya kartlara
-          tıklayarak ilgili sayfaya gidebilirsin. Her bölüm kendi sayfasında
-          daha fazla örnek ve açıklama içeriyor.
-        </p>
-        <div class="cards">
-          <article class="card">
-            <h3>🧩 Kod parçacıkları</h3>
-            <p>
-              Python, JS ve C++ için sık kullanılan kod şablonları:
-              dosya okuma, rastgele sayı, zamanlayıcı, diziler, string
-              işlemleri ve daha fazlası. Kopyala–yapıştır kullan.
-            </p>
-          </article>
-          <article class="card">
-            <h3>🎮 Minik oyunlar</h3>
-            <p>
-              Sayı tahmin, taş-kağıt-makas ve benzeri tarayıcıda çalışan
-              küçük oyunlar. Hem oyna hem kodlarını incele; kendi
-              varyasyonunu yazabilirsin.
-            </p>
-          </article>
-          <article class="card">
-            <h3>💡 Proje fikirleri</h3>
-            <p>
-              “Ne yazsam?” dediğinde aklına fikir gelsin diye kolay, orta
-              ve ileri seviye proje fikirleri. Python, JS ve C++ için
-              onlarca fikir tek yerde.
-            </p>
-          </article>
-          <article class="card">
-            <h3>🧰 Araç kutusu</h3>
-            <p>
-              Rastgele sayı, öğrenci/kişi seçici, şifre üretici, zar atma,
-              yazı–tura, gruplara bölme gibi araçlar. Derste veya günlük
-              kullanımda hemen işe yarar.
-            </p>
-          </article>
-          <article class="card">
-            <h3>📚 Nereden başlamalı?</h3>
-            <p>
-              Hiç kod bilmiyorsan önce Kod parçacıklarından basit örnekleri
-              kopyalayıp dene. Biraz alıştıysan Proje fikirlerinden birini
-              seçip adım adım yap.
-            </p>
-          </article>
-          <article class="card">
-            <h3>🔄 Güncellemeler</h3>
-            <p>
-              Yeni snippet’ler, oyunlar ve araçlar zamanla ekleniyor.
-              Aynı yapıyı kullanarak kendi sitene de ekleyebilirsin.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Bu site neden var?</h2>
-        <div class="cards">
-          <article class="card">
-            <h3>Arkadaşlarla paylaşmak için</h3>
-            <p>
-              “Bak bunu yazdım, siteye koydum” diyebileceğin bir yer olsun.
-              Kod parçacıklarını ve fikirlerini ekleyip arkadaşlarınla
-              linki paylaşabilirsin; herkes tarayıcıdan açıp deneyebilir.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Tahta / sınıf için ufak araçlar</h3>
-            <p>
-              Rastgele öğrenci seçici, zar, sayı üretici veya basit oyunları
-              derste direkt tarayıcıdan açıp kullanabilirsin. Ekstra program
-              kurmaya gerek yok; sadece linki aç.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Reklamsız, sade bir yer olsun diye</h3>
-            <p>
-              Tamamen ücretsiz, reklamsız ve sadece tarayıcıyla çalışan
-              küçük bir deney alanı. İsteyen herkes kodu alıp kendi
-              projesine uyarlayabilir.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Alıştırma yapmak için</h3>
-            <p>
-              Yeni öğrenirken “ne yazacağım?” sorusu sık gelir. Burada hem
-              hazır kodlar hem proje fikirleri var; birini seçip üzerinde
-              oynayarak pratik yapabilirsin.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Hızlı referans için</h3>
-            <p>
-              “Dosyadan satır okuma”, “rastgele sayı”, “localStorage” gibi
-              sık kullanılan parçalar tek yerde. Projede takıldığında
-              buradan kopyalayıp uyarlayabilirsin.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Açık ve uyarlanabilir</h3>
-            <p>
-              Tüm içerik açık; istersen bu siteyi fork’layıp kendi
-              sınıfına veya topluluğuna özel sürümünü çıkarabilirsin.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <section class="section">
-        <h2>Nasıl kullanılır?</h2>
-        <p class="tagline">
-          Soldaki menüden istediğin sayfaya geç. Kod parçacıklarında “Kopyala”
-          butonuna tıklayıp kendi editöründe yapıştır; araç kutusundaki
-          alanları doldurup butona bas. Oyunlar sayfasında doğrudan tarayıcıda
-          oynayabilirsin.
-        </p>
-        <div class="cards">
-          <article class="card">
-            <h3>İlk kez kod yazıyorsan</h3>
-            <p>
-              Kod parçacıkları sayfasından Python veya JavaScript ile
-              başla. Önce “1 ile 100 arası rastgele sayı” gibi tek blok
-              örnekleri kopyalayıp çalıştırmayı dene.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Proje arıyorsan</h3>
-            <p>
-              Proje fikirleri sayfasında dile ve seviyeye göre filtrele.
-              Kolay olanlardan birini seçip adım adım yap; bitince orta
-              seviyeye geçebilirsin.
-            </p>
-          </article>
-          <article class="card">
-            <h3>Derste kullanacaksan</h3>
-            <p>
-              Araç kutusundaki öğrenci seçici veya rastgele sayıyı ekranı
-              açıp tahtada kullan. Öğrenciler kendi cihazlarından da
-              aynı linki açıp oyunları deneyebilir.
-            </p>
-          </article>
-        </div>
-      </section>
-
-      <footer>
-        ruhbudur · Bu site HTML/CSS/JS + GitHub + Netlify ile hazırlanmıştır.
-      </footer>
-    </main>
-  </div>
-  <script src="script-common.js" type="module"></script>
+  <canvas id="canvas"></canvas>
+  <div class="overlay"><h1>BAKIM YAPILIYOR</h1></div>
+  <script>
+    var c = document.getElementById("canvas");
+    var ctx = c.getContext("2d");
+    function resize() { c.width = window.innerWidth; c.height = window.innerHeight; }
+    window.onresize = resize;
+    resize();
+    var chars = "01ABCDEFGHIJKLMNOPQRSTUVWXYZ<>/{}[]=+";
+    var f = 16;
+    var cols = Math.floor(c.width / f);
+    var drops = [];
+    for (var i = 0; i < cols; i++) drops[i] = Math.random() * 50;
+    function draw() {
+      ctx.fillStyle = "rgba(0,0,0,0.06)";
+      ctx.fillRect(0, 0, c.width, c.height);
+      ctx.fillStyle = "#22c55e";
+      ctx.font = f + "px monospace";
+      for (var i = 0; i < drops.length; i++) {
+        var t = chars[Math.floor(Math.random() * chars.length)];
+        ctx.fillText(t, i * f, drops[i] * f);
+        if (drops[i] * f > c.height && Math.random() > 0.97) drops[i] = 0;
+        else drops[i]++;
+      }
+    }
+    setInterval(draw, 45);
+  </script>
 </body>
 </html>
